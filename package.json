@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
+    "@types/jsonwebtoken": "^9.0.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "convex": "^1.15.0",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.439.0",
     "next": "14.2.8",
     "react": "^18",
@@ -21,7 +23,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.16.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

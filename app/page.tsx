@@ -1,6 +1,11 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useAction } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export default function Home() {
+  const signIn = useAction(api.signin.createJWT);
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#9945FF] to-[#14F195] p-8 font-[family-name:var(--font-geist-sans)]">
       <main className="max-w-4xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden">
@@ -29,6 +34,10 @@ export default function Home() {
 
           <div className="flex gap-4 justify-center">
             <Button
+              onClick={() => {
+                const newSignIn = signIn({ walletAddress: "0x123" });
+                console.log(newSignIn);
+              }}
               className="px-6 py-3 bg-[#9945FF] text-white rounded-full hover:bg-[#7B3FCC] transition-colors"
             >
               Start Reading

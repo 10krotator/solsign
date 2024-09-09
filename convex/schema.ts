@@ -10,7 +10,8 @@ export default defineSchema({
         userId: v.string(),
     }),
     users: defineTable({
-        token: v.string(),
         walletAddress: v.string(),
-    }),
+        jwt: v.string(),
+    })
+    .index("by_walletAddress", ["walletAddress"]),
 });
