@@ -17,29 +17,16 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans);
+  .font-mono {
+    font-family: var(--font-geist-mono);
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-@keyframes tilt {
-  0%, 50%, 100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(0.5deg);
-  }
-  75% {
-    transform: rotate(-0.5deg);
-  }
-}
-
-.animate-tilt {
-  animation: tilt 10s infinite linear;
 }
 
 @layer base {

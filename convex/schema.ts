@@ -2,16 +2,16 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-  // ... existing tables (if any)
-
-    posts: defineTable({
+    documents: defineTable({
         title: v.string(),
-        content: v.string(),
-        userId: v.string(),
+        content: v.optional(v.string()),
+        createdAt: v.optional(v.number()),
+        updatedAt: v.optional(v.number()),
+        pubkeys: v.optional(v.array(v.string())),
     }),
-    users: defineTable({
-        walletAddress: v.string(),
-        jwt: v.string(),
-    })
-    .index("by_walletAddress", ["walletAddress"]),
+    profiles: defineTable({
+        pubkey: v.string(),
+        name: v.string(),
+        avatar: v.string(),
+    }),
 });
