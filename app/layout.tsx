@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "next-themes";
-import { WalletProvider } from '@/components/WalletProvider';
 
 import { cn } from "@/lib/utils";
-import { ConvexClientProvider } from "@/components/providers/convex-provider";
+import { SolanaWalletProvider } from "@/components/providers/SolanaWalletProvider";
+import Navbar from "./_components/Navbar";
 
 export const metadata: Metadata = {
   title: "SolanaSign",
@@ -16,18 +15,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      suppressHydrationWarning
+    >
       <body className={cn("min-h-screen antialiased")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ConvexClientProvider>
-            <WalletProvider>
-              {children}
-            </WalletProvider>
-          </ConvexClientProvider>
+          <SolanaWalletProvider>
+            <Navbar />
+            {/* Your existing layout content */}
+            {children}
+          </SolanaWalletProvider>
         </ThemeProvider>
       </body>
     </html>
