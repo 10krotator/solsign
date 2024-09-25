@@ -22,7 +22,7 @@ export function SignIn() {
       }
       handleSignIn();
     }
-  }, [publicKey, connected]);
+  }, [publicKey, connected, getUser]);
 
   const handleSignIn = async () => {
     if (publicKey) {
