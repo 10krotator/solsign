@@ -48,7 +48,7 @@ export function SignIn() {
           publicKey: publicKey.toBase58(),
           signature,
           message,
-          callbackUrl: "/dashboard",
+          callbackUrl: "/",
         });
       } catch (error) {
         console.error("Error signing message:", error);
