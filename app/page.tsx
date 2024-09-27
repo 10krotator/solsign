@@ -10,7 +10,7 @@ import { UnAuth } from "@/components/UnAuth";
 export default function Home() {
   const { status } = useSession();
 
-  if (status === "unauthenticated") {
+  if (status !== "authenticated") {
     return <UnAuth />;
   }
 

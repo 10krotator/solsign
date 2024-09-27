@@ -33,7 +33,7 @@ export default function SignDocument() {
         }
     };
 
-    if (status === "unauthenticated") {
+    if (status !== "authenticated") {
         return <UnAuth />;
     }
 

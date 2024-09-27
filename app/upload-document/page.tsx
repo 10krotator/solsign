@@ -27,7 +27,7 @@ const UploadDocumentPage = () => {
         setWalletAddresses(updatedAddresses);
     };
 
-    if (status === "unauthenticated") {
+    if (status !== "authenticated") {
         return <UnAuth />;
     }
 
