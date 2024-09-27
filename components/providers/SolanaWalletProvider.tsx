@@ -33,7 +33,9 @@ export function SolanaWalletProvider({
       <ConvexClientProvider>
         <ConnectionProvider endpoint={endpoint}>
           <WalletProvider wallets={wallets} autoConnect={false}>
-            <WalletModalProvider>{children}</WalletModalProvider>
+            <WalletModalProvider>
+              {children}
+            </WalletModalProvider>
           </WalletProvider>
         </ConnectionProvider>
       </ConvexClientProvider>
