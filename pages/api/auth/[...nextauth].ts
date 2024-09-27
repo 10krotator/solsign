@@ -6,7 +6,7 @@ import * as nacl from "tweetnacl";
 export default NextAuth({
     providers: [
         CredentialsProvider({
-        name: "Solana",
+        name: "solana sign",
         credentials: {
             publicKey: { label: "Public Key", type: "text" },
             signature: { label: "Signature", type: "text" },
