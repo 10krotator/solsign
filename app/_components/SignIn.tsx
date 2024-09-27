@@ -19,12 +19,12 @@ export function SignIn() {
     if (connected && publicKey && !isSigningIn) {
       handleSignIn();
     }
-  }, [publicKey, connected, getUser]);
+  }, [publicKey, connected, getUser, isSigningIn]);
 
   const handleSignIn = async () => {
     if (publicKey && !isSigningIn) {
       setIsSigningIn(true);
-      const message = `Sign this message for authenticating with your wallet ${publicKey?.toBase58()}`;
+      const message = `Signing in to solana sign with your wallet ${publicKey?.toBase58()}`;
       const encodedMessage = new TextEncoder().encode(message);
       try {
         const signedMessage = await window.solana.signMessage(

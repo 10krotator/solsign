@@ -7,6 +7,7 @@ import { useSession, signOut } from "next-auth/react";
 import { SignIn } from "./SignIn";
 import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/ThemeSwitcher";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -20,6 +21,9 @@ export default function Navbar() {
           <Logo />
         </Link>
         <div className="flex items-center">
+            <div className="mr-4">
+              <ModeToggle />
+            </div>
           {session ? (
             <>
               <Button onClick={() => router.push("/")} className="mr-4" size="sm">
