@@ -14,7 +14,7 @@ export default function Navbar() {
   const pubkey = session?.user?.name || "";
 
   return (
-    <nav className="backdrop-blur-[2px] p-3 fixed top-0 left-0 right-0 z-50">
+    <nav className="backdrop-blur-[2px] p-3 fixed top-2 left-10 right-10 z-50 rounded-full">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-xl font-bold">
           <Logo />
@@ -22,10 +22,10 @@ export default function Navbar() {
         <div className="flex items-center">
           {session ? (
             <>
-              <Button onClick={() => router.push("/")} className="mr-4">
+              <Button onClick={() => router.push("/")} className="mr-4" size="sm">
                 home
               </Button>
-              <Button onClick={() => signOut()} className="mr-4">
+              <Button onClick={() => signOut()} className="mr-4" size="sm">
                 logout
               </Button>
               <span className="inline-block max-w-[150px] overflow-hidden">
