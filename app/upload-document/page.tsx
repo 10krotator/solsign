@@ -4,8 +4,12 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
+import { useSession } from "next-auth/react";
+import { UnAuth } from "@/components/UnAuth";
 
 const UploadDocumentPage = () => {
+    const { status } = useSession();
+
     const [walletAddresses, setWalletAddresses] = useState<string[]>(['']);
 
     const addWalletInput = () => {
@@ -22,6 +26,10 @@ const UploadDocumentPage = () => {
         updatedAddresses[index] = value;
         setWalletAddresses(updatedAddresses);
     };
+
+    if (status === "unauthenticated") {
+        return <UnAuth />;
+    }
 
     return (
         <div className="flex flex-col items-center justify-center h-screen">

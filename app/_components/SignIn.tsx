@@ -13,19 +13,17 @@ export function SignIn() {
   const getUser = useQuery(api.users.getUserByPublicKey, {
     pubkey: publicKey?.toBase58() || "",
   });
-  const [usrState, setUsrState] = useState<boolean>(true);
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   useEffect(() => {
-    if (connected && publicKey) {
-      if (getUser === undefined) {
-        setUsrState(false);
-      }
+    if (connected && publicKey && !isSigningIn) {
       handleSignIn();
     }
   }, [publicKey, connected, getUser]);
 
   const handleSignIn = async () => {
-    if (publicKey) {
+    if (publicKey && !isSigningIn) {
+      setIsSigningIn(true);
       const message = `Sign this message for authenticating with your wallet ${publicKey?.toBase58()}`;
       const encodedMessage = new TextEncoder().encode(message);
       try {
@@ -34,9 +32,9 @@ export function SignIn() {
           "utf8",
         );
         const signature = Buffer.from(signedMessage.signature).toString("hex");
+
         // Check if user exists in Convex
-        console.log(usrState);
-        if (!usrState) {
+        if (getUser === undefined) {
           // Create new user if not exists
           await createUser({
             publicKey: publicKey.toBase58(),
@@ -52,6 +50,8 @@ export function SignIn() {
         });
       } catch (error) {
         console.error("Error signing message:", error);
+      } finally {
+        setIsSigningIn(false);
       }
     }
   };
