@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { cn } from "@/lib/utils";
 import { SolanaWalletProvider } from "@/components/providers/SolanaWalletProvider";
 import Navbar from "./_components/Navbar";
+import { GridPattern } from "@/components/ui/grid-pattern";
 
 export const metadata: Metadata = {
   title: "SolanaSign",
@@ -27,6 +28,15 @@ export default function RootLayout({
       <body className={cn("min-h-screen antialiased")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SolanaWalletProvider>
+          <GridPattern
+          width={20}
+          height={20}
+              x={-1}
+              y={-1}
+              className={cn(
+                "[mask-image:linear-gradient(to_bottom,white,transparent,transparent)] z-[-1]",
+              )}
+            />
             <Navbar />
             {/* Your existing layout content */}
             {children}

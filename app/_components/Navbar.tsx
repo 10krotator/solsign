@@ -12,10 +12,9 @@ export default function Navbar() {
   const { data: session } = useSession();
   const router = useRouter();
   const pubkey = session?.user?.name || "";
-  console.log(pubkey + " on navbar");
 
   return (
-    <nav className=" p-4 fixed top-0 left-0 right-0 z-50">
+    <nav className="backdrop-blur-[2px] p-3 fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-xl font-bold">
           <Logo />
@@ -29,7 +28,11 @@ export default function Navbar() {
               <Button onClick={() => signOut()} className="mr-4">
                 logout
               </Button>
-              <span>{session?.user?.name}</span>
+              <span className="inline-block max-w-[150px] overflow-hidden">
+                {pubkey.length > 13
+                  ? `${pubkey.slice(0, 5)}...${pubkey.slice(-5)}`
+                  : pubkey}
+              </span>
             </>
           ) : (
             <SignIn />
