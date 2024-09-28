@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 import { SignIn } from "./SignIn";
 import Logo from "./Logo";
@@ -11,8 +12,9 @@ import { ModeToggle } from "@/components/ThemeSwitcher";
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const { publicKey } = useWallet();
   const router = useRouter();
-  const pubkey = session?.user?.name || "";
+  const pubkey = session?.user?.name || publicKey?.toBase58() || "";
 
   return (
     <nav className="backdrop-blur-[2px] p-3 fixed top-2 left-10 right-10 z-50 rounded-full">
@@ -21,12 +23,13 @@ export default function Navbar() {
           <Logo />
         </Link>
         <div className="flex items-center">
-            <div className="mr-4">
-              <ModeToggle />
-            </div>
-          {session ? (
+          <div className="mr-4">
+            <ModeToggle />
+          </div>
+          <SignIn />
+          {session && (
             <>
-              <Button onClick={() => router.push("/")} className="mr-4" size="sm">
+              <Button onClick={() => router.push("/")} className="ml-4 mr-4" size="sm">
                 home
               </Button>
               <Button onClick={() => signOut()} className="mr-4" size="sm">
@@ -38,8 +41,6 @@ export default function Navbar() {
                   : pubkey}
               </span>
             </>
-          ) : (
-            <SignIn />
           )}
         </div>
       </div>
