@@ -1,4 +1,3 @@
-import { WalletConnectButton } from "@solana/wallet-adapter-react-ui";
 import { Hero } from "./Hero";
 
 export const UnAuth = () => {
@@ -8,7 +7,6 @@ export const UnAuth = () => {
       <span className="mb-8 leading-tight tracking-tighter">
         connect your wallet to get started
       </span>
-      <WalletConnectButton />
     </div>
   );
 };
