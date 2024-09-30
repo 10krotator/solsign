@@ -12,6 +12,7 @@ import { UnAuth } from "@/components/UnAuth";
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { toast } from 'sonner';
 
 const UploadDocumentPage = () => {
     const { status } = useSession();
@@ -43,6 +44,8 @@ const UploadDocumentPage = () => {
             // Reset form or redirect user
             setTitle('');
             setWalletAddresses(['']);
+            // Show success message using toast
+            toast.success('Document created successfully');
         } catch (error) {
             console.error('Error creating document:', error);
         }
