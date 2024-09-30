@@ -29,6 +29,9 @@ export default function Navbar() {
               <Button onClick={() => router.push("/")} className="ml-4 mr-4" size="sm">
                 home
               </Button>
+              <Button onClick={() => router.push("/roadmap")} className="mr-4" size="sm">
+                Roadmap
+              </Button>
               <Button onClick={() => signOut()} className="mr-4" size="sm">
                 logout
               </Button>
