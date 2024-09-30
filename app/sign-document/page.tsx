@@ -7,6 +7,7 @@ import DocumentUpload from '@/components/DocumentUpload';
 import SignatureArea from '@/components/SignatureArea';
 import { useSession } from "next-auth/react";
 import { UnAuth } from "@/components/UnAuth";
+
 export default function SignDocument() {
     const { status } = useSession();
 

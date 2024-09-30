@@ -1,53 +1,61 @@
 'use client'
 
 import { useState, FormEvent } from 'react';
-
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Trash2 } from 'lucide-react';
-
 import { useSession } from "next-auth/react";
-import { UnAuth } from "@/components/UnAuth";
+import { useWallet } from '@solana/wallet-adapter-react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import { useWallet } from '@solana/wallet-adapter-react';
 import { toast } from 'sonner';
+
+import { UnAuth } from "@/components/UnAuth";
+
+import { UploadComponent } from './_components/UploadComponent';
+import { WalletAddressInputs } from './_components/WalletAddressInputs';
+import { Button } from '@/components/ui/button';
 
 const UploadDocumentPage = () => {
     const { status } = useSession();
     const { publicKey } = useWallet();
-    const [title, setTitle] = useState<string>('');
     const [walletAddresses, setWalletAddresses] = useState<string[]>(['']);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const createDocument = useMutation(api.documents.createDocument);
 
-    const addWalletInput = () => {
-        setWalletAddresses([...walletAddresses, '']);
-    };
-
-    const removeWalletInput = (index: number) => {
-        const updatedAddresses = walletAddresses.filter((_, i) => i !== index);
-        setWalletAddresses(updatedAddresses.length ? updatedAddresses : ['']);
-    };
-
-    const handleWalletChange = (index: number, value: string) => {
-        const updatedAddresses = [...walletAddresses];
-        updatedAddresses[index] = value;
-        setWalletAddresses(updatedAddresses);
+    const handleFileSelect = (file: File | null) => {
+        setSelectedFile(file);
     };
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!selectedFile) {
+            toast.error('Please select a file to upload');
+            return;
+        }
+
         try {
-            await createDocument({ title: title, creator: publicKey?.toString() || '', pubkeys: walletAddresses });
-            console.log('Document created successfully');
-            // Reset form or redirect user
-            setTitle('');
+            const fileBase64 = await new Promise<string>((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(selectedFile);
+                reader.onload = () => resolve(reader.result as string);
+                reader.onerror = error => reject(error);
+            });
+
+            const base64Content = fileBase64.split(',')[1];
+            console.log(base64Content);
+
+            await createDocument({
+                title: selectedFile.name,
+                creator: publicKey?.toString() || '',
+                pubkeys: walletAddresses,
+                // fileContent: base64Content,
+                // fileName: selectedFile.name
+            });
+
             setWalletAddresses(['']);
-            // Show success message using toast
+            setSelectedFile(null);
             toast.success('Document created successfully');
         } catch (error) {
             console.error('Error creating document:', error);
+            toast.error('Error creating document');
         }
     };
 
@@ -58,44 +66,10 @@ const UploadDocumentPage = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 mt-10">
             <div className="w-full max-w-md bg-secondary rounded-lg shadow-md p-8">
-                <span className="text-3xl font-bold leading-tight tracking-tighter mb-6 text-center">upload document</span>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                        <Label htmlFor="title" className="text-sm font-medium leading-tight tracking-tighter">
-                            document title
-                        </Label>
-                        <Input
-                            id="title"
-                            type="text"
-                            placeholder="Enter document title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required
-                            className="w-full"
-                        />
-                    </div>
-                    <div className="space-y-4">
-                        <span className="text-xl font-bold leading-tight tracking-tighter mb-2">add wallets to sign the document</span>
-                        {walletAddresses.map((address, index) => (
-                            <div key={index} className="flex gap-2">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter wallet address"
-                                    value={address}
-                                    onChange={(e) => handleWalletChange(index, e.target.value)}
-                                    required
-                                    className="flex-grow"
-                                />
-                                {walletAddresses.length > 1 && (
-                                    <Button type="button" onClick={() => removeWalletInput(index)} variant="destructive" className="shrink-0">
-                                        <Trash2 size={16} />
-                                    </Button>
-                                )}
-                            </div>
-                        ))}
-                        <Button type="button" onClick={addWalletInput} className="w-full">Add Another Wallet</Button>
-                    </div>
-                    <Button type="submit" className="w-full">Create Document</Button>
+                    <UploadComponent onFileSelect={handleFileSelect} />
+                    <WalletAddressInputs walletAddresses={walletAddresses} setWalletAddresses={setWalletAddresses} />
+                    <Button type="submit">Submit</Button>
                 </form>
             </div>
         </div>
