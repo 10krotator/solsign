@@ -8,17 +8,28 @@ export const createDocument = mutation({
         pubkeys: v.array(v.string()),
     },
     handler: async (ctx, args) => {
-        return await ctx.db.insert("documents", {
+        const document = await ctx.db.insert("documents", {
             title: args.title,
             creator: args.creator,
             pubkeys: args.pubkeys,
         });
+
+        args.pubkeys.forEach(async (pubkey) => {
+            await ctx.db.insert("signatures", {
+                documentId: document,
+                pubkey: pubkey,
+            });
+        });
+        return document;
     },
 });
 
-export const listDocuments = query({
-    args: {},
-    handler: async (ctx) => {
-        return await ctx.db.query("documents").collect();
+export const getDocumentByPubkey = query({
+    args: {
+        pubkey: v.string(),
+    },
+    handler: async (ctx, args) => {
+        const signatureList = await ctx.db.query("signatures").withIndex("by_pubkey", (q) => q.eq("pubkey", args.pubkey)).collect();
+        return signatureList;
     },
 });

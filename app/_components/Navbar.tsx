@@ -16,9 +16,11 @@ export default function Navbar() {
   return (
     <nav className="backdrop-blur-[2px] p-3 fixed top-2 left-10 right-10 z-50 rounded-full">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold">
-          <Logo />
-        </Link>
+        <div className="flex items-center">
+          <Link href="/" className="text-xl font-bold mr-4">
+            <Logo />
+          </Link>
+        </div>
         <div className="flex items-center">
           <div className="mr-4">
             <ModeToggle />
@@ -31,6 +33,9 @@ export default function Navbar() {
               </Button>
               <Button onClick={() => router.push("/roadmap")} className="mr-4" size="sm">
                 Roadmap
+              </Button>
+              <Button onClick={() => {}} className="mr-4" size="sm">
+                points 👀
               </Button>
               <Button onClick={() => signOut()} className="mr-4" size="sm">
                 logout
