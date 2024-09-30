@@ -28,9 +28,9 @@ export default function RootLayout({
       <body className={cn("min-h-screen antialiased")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <SolanaWalletProvider>
-          <GridPattern
-              width={20}
-              height={20}
+            <GridPattern
+              width={10}
+              height={10}
               x={-1}
               y={-1}
               className={cn(

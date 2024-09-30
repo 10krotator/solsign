@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { useWallet } from "@solana/wallet-adapter-react";
 
 import { SignIn } from "./SignIn";
 import Logo from "./Logo";
@@ -12,9 +11,7 @@ import { ModeToggle } from "@/components/ThemeSwitcher";
 
 export default function Navbar() {
   const { data: session } = useSession();
-  const { publicKey } = useWallet();
   const router = useRouter();
-  const pubkey = session?.user?.name || publicKey?.toBase58() || "";
 
   return (
     <nav className="backdrop-blur-[2px] p-3 fixed top-2 left-10 right-10 z-50 rounded-full">
@@ -35,11 +32,6 @@ export default function Navbar() {
               <Button onClick={() => signOut()} className="mr-4" size="sm">
                 logout
               </Button>
-              <span className="inline-block max-w-[150px] overflow-hidden">
-                {pubkey.length > 13
-                  ? `${pubkey.slice(0, 5)}...${pubkey.slice(-5)}`
-                  : pubkey}
-              </span>
             </>
           )}
         </div>
