@@ -5,11 +5,13 @@ export const createDocument = mutation({
     args: {
         title: v.string(),
         creator: v.string(),
+        pubkeys: v.array(v.string()),
     },
     handler: async (ctx, args) => {
         return await ctx.db.insert("documents", {
             title: args.title,
             creator: args.creator,
+            pubkeys: args.pubkeys,
         });
     },
 });

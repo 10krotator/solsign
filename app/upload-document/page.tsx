@@ -1,9 +1,12 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
+
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
+
 import { useSession } from "next-auth/react";
 import { UnAuth } from "@/components/UnAuth";
 import { useMutation } from 'convex/react';
@@ -15,7 +18,7 @@ const UploadDocumentPage = () => {
     const { publicKey } = useWallet();
     const [title, setTitle] = useState<string>('');
     const [walletAddresses, setWalletAddresses] = useState<string[]>(['']);
-    const setDocTitle = useMutation(api.documents.createDocument);
+    const createDocument = useMutation(api.documents.createDocument);
 
     const addWalletInput = () => {
         setWalletAddresses([...walletAddresses, '']);
@@ -32,12 +35,16 @@ const UploadDocumentPage = () => {
         setWalletAddresses(updatedAddresses);
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
-            await setDocTitle({ title: title, creator: publicKey?.toString() || '' });
-            console.log('Document title set successfully');
+            await createDocument({ title: title, creator: publicKey?.toString() || '', pubkeys: walletAddresses });
+            console.log('Document created successfully');
+            // Reset form or redirect user
+            setTitle('');
+            setWalletAddresses(['']);
         } catch (error) {
-            console.error('Error setting document title:', error);
+            console.error('Error creating document:', error);
         }
     };
 
@@ -46,40 +53,48 @@ const UploadDocumentPage = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-3xl font-bold leading-tight tracking-tighter mb-8">upload document</h1>
-            <div className="flex flex-col gap-2 w-full max-w-md mb-8">
-                <span className="leading-tight tracking-tighter">document title</span>
-                <Input
-                    type="text"
-                    placeholder="Enter document title"
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 mt-10">
+            <div className="w-full max-w-md bg-secondary rounded-lg shadow-md p-8">
+                <span className="text-3xl font-bold leading-tight tracking-tighter mb-6 text-center">upload document</span>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                        <Label htmlFor="title" className="text-sm font-medium leading-tight tracking-tighter">
+                            document title
+                        </Label>
+                        <Input
+                            id="title"
+                            type="text"
+                            placeholder="Enter document title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                            className="w-full"
+                        />
+                    </div>
+                    <div className="space-y-4">
+                        <span className="text-xl font-bold leading-tight tracking-tighter mb-2">add wallets to sign the document</span>
+                        {walletAddresses.map((address, index) => (
+                            <div key={index} className="flex gap-2">
+                                <Input
+                                    type="text"
+                                    placeholder="Enter wallet address"
+                                    value={address}
+                                    onChange={(e) => handleWalletChange(index, e.target.value)}
+                                    required
+                                    className="flex-grow"
+                                />
+                                {walletAddresses.length > 1 && (
+                                    <Button type="button" onClick={() => removeWalletInput(index)} variant="destructive" className="shrink-0">
+                                        <Trash2 size={16} />
+                                    </Button>
+                                )}
+                            </div>
+                        ))}
+                        <Button type="button" onClick={addWalletInput} className="w-full">Add Another Wallet</Button>
+                    </div>
+                    <Button type="submit" className="w-full">Create Document</Button>
+                </form>
             </div>
-            <div className="flex flex-col gap-2 w-full max-w-md">
-                <h1 className="text-3xl font-bold leading-tight tracking-tighter">add wallets to sign the document</h1>
-                <div className="flex flex-col gap-2">
-                    {walletAddresses.map((address, index) => (
-                        <div key={index} className="flex gap-2">
-                            <Input
-                                type="text"
-                                placeholder="Enter wallet address"
-                                value={address}
-                                onChange={(e) => handleWalletChange(index, e.target.value)}
-                            />
-                            {walletAddresses.length > 1 && (
-                                <Button onClick={() => removeWalletInput(index)} variant="destructive">
-                                    <Trash2 size={16} />
-                                </Button>
-                            )}
-                        </div>
-                    ))}
-                </div>
-                <div className="flex justify-end mt-2">
-                    <Button onClick={addWalletInput} className="w-fit">Add Another Wallet</Button>
-                </div>
-            </div>
-            <Button onClick={handleSubmit} className="mt-2 w-fit justify-end">create document</Button>
         </div>
     );
 };
