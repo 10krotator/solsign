@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 
+import { StarIcon } from "lucide-react";
 import { SignIn } from "./SignIn";
 import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
@@ -34,8 +35,8 @@ export default function Navbar() {
               <Button onClick={() => router.push("/roadmap")} className="mr-4" size="sm">
                 Roadmap
               </Button>
-              <Button onClick={() => {}} className="mr-4" size="sm">
-                points 👀
+              <Button onClick={() => {}} className="mr-4 items-center justify-center" size="sm">
+                points <StarIcon className="h-auto w-4" />
               </Button>
               <Button onClick={() => signOut()} className="mr-4" size="sm">
                 logout
