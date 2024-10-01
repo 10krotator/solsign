@@ -43,3 +43,12 @@ export const getDocumentById = query({
         return document;
     },
 });
+
+export const getDocs = query({
+    args: {
+    },
+    handler: async (ctx) => {
+        const docs = await ctx.db.query("documents").collect();
+        return docs;
+    },
+});
