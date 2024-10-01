@@ -33,7 +33,7 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
     try {
         const message = new TextEncoder().encode(`Signing document -- documentName: ${document.title}, documentId: ${documentId}, with pubkey: ${publicKey.toBase58()}`);
         const signature = await signMessage(message);
-        writeSign({ pubkey: publicKey.toBase58(), signature: Buffer.from(signature).toString("hex") });
+        writeSign({ documentId: documentId as Id<"documents">, pubkey: publicKey.toBase58(), signature: Buffer.from(signature).toString("hex") });
         // TODO: write signature to database
         alert('Document signed successfully!');
         router.push("/sign-document");

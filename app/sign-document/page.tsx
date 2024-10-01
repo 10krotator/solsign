@@ -1,6 +1,7 @@
 "use client";
 
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useRouter } from "next/navigation";
 
 import { useSession } from "next-auth/react";
 import Link from 'next/link';
@@ -12,11 +13,16 @@ import { api } from '@/convex/_generated/api';
 
 export default function SignDocument() {
     const { status } = useSession();
+    const router = useRouter();
 
     const { publicKey } = useWallet();
     console.log(publicKey?.toBase58());
     const signatures = useQuery(api.documents.getDocumentByPubkey, { pubkey: publicKey?.toBase58() as string });
     const docs = useQuery(api.documents.getDocs);
+
+    if (!publicKey) {
+        router.push("/");
+    }
 
     if (status !== "authenticated") {
         return <UnAuth />;
