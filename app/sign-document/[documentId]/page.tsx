@@ -3,6 +3,7 @@
 import React from "react"
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import { ButtonGradient } from "@/components/ui/button-gradient";
 import { UnAuth } from "@/components/UnAuth";
@@ -24,6 +25,7 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
   const pubkeyShort = publicKey?.toBase58().slice(0, 5) + "..." + publicKey?.toBase58().slice(-5);
   const document = useQuery(api.documents.getDocumentById, { documentId: documentId as Id<"documents"> });
   const writeSign = useMutation(api.documents.writeSignature);
+  const router = useRouter();
 
   const handleSign = async () => {
     if (!publicKey || !signMessage || !document) return;
@@ -31,9 +33,10 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
     try {
         const message = new TextEncoder().encode(`Signing document -- documentName: ${document.title}, documentId: ${documentId}, with pubkey: ${publicKey.toBase58()}`);
         const signature = await signMessage(message);
-        writeSign({ documentId: documentId as Id<"documents">, signature: Buffer.from(signature).toString("hex") });
+        writeSign({ pubkey: publicKey.toBase58(), signature: Buffer.from(signature).toString("hex") });
         // TODO: write signature to database
         alert('Document signed successfully!');
+        router.push("/sign-document");
     } catch (error) {
         console.error('Error signing document:', error);
         alert('Failed to sign document.');

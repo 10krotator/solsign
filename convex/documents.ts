@@ -55,13 +55,13 @@ export const getDocs = query({
 
 export const writeSignature = mutation({
     args: {
-        documentId: v.id("documents"),
         signature: v.string(),
+        pubkey: v.string(),
     },
     handler: async (ctx, args) => {
         const signature = await ctx.db
             .query("signatures")
-            .withIndex("by_documentId", (q) => q.eq("documentId", args.documentId))
+            .withIndex("by_pubkey", (q) => q.eq("pubkey", args.pubkey))
             .first();
 
         if (signature) {
