@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
@@ -15,6 +16,7 @@ import { Button } from '@/components/ui/button';
 
 const UploadDocumentPage = () => {
     const { status } = useSession();
+    const router = useRouter();
     const { publicKey } = useWallet();
     const [walletAddresses, setWalletAddresses] = useState<string[]>(['']);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -46,6 +48,7 @@ const UploadDocumentPage = () => {
                 title: selectedFile.name,
                 creator: publicKey?.toString() || '',
                 pubkeys: walletAddresses,
+                // TODO: write file content to database
                 // fileContent: base64Content,
                 // fileName: selectedFile.name
             });
@@ -53,6 +56,7 @@ const UploadDocumentPage = () => {
             setWalletAddresses(['']);
             setSelectedFile(null);
             toast.success('Document created successfully');
+            router.push("/");
         } catch (error) {
             console.error('Error creating document:', error);
             toast.error('Error creating document');
