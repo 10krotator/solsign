@@ -10,7 +10,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 
 const AdminPage = () => {
   const { publicKey } = useWallet();
-  const adminPubkey = "8fA9f3vcq9xxgavvQsCVSz399JGP96siRNHZHJGEfvsL";
+  const adminPubkey = process.env.NEXT_PUBLIC_ADMIN_PUBKEY;
 
   const signThis = () => {
     const signTransaction = async () => {
