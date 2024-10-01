@@ -52,3 +52,24 @@ export const getDocs = query({
         return docs;
     },
 });
+
+export const writeSignature = mutation({
+    args: {
+        documentId: v.id("documents"),
+        signature: v.string(),
+    },
+    handler: async (ctx, args) => {
+        const signature = await ctx.db
+            .query("signatures")
+            .withIndex("by_documentId", (q) => q.eq("documentId", args.documentId))
+            .first();
+
+        if (signature) {
+            await ctx.db.patch(signature._id, {
+                signature: args.signature,
+            });
+        } else {
+            throw new Error("failed to write signature");
+        }
+    },
+});

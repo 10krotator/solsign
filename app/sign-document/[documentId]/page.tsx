@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { ButtonGradient } from "@/components/ui/button-gradient";
 import { UnAuth } from "@/components/UnAuth";
 
-import { useQuery } from 'convex/react';
+import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Id } from "@/convex/_generated/dataModel";
 
@@ -23,6 +23,7 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
   const { publicKey, signMessage } = useWallet();
   const pubkeyShort = publicKey?.toBase58().slice(0, 5) + "..." + publicKey?.toBase58().slice(-5);
   const document = useQuery(api.documents.getDocumentById, { documentId: documentId as Id<"documents"> });
+  const writeSign = useMutation(api.documents.writeSignature);
 
   const handleSign = async () => {
     if (!publicKey || !signMessage || !document) return;
@@ -30,7 +31,7 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
     try {
         const message = new TextEncoder().encode(`Signing document -- documentName: ${document.title}, documentId: ${documentId}, with pubkey: ${publicKey.toBase58()}`);
         const signature = await signMessage(message);
-        console.log('Document signed:', signature);
+        writeSign({ documentId: documentId as Id<"documents">, signature: Buffer.from(signature).toString("hex") });
         // TODO: write signature to database
         alert('Document signed successfully!');
     } catch (error) {

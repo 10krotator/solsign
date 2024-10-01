@@ -5,6 +5,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useSession } from "next-auth/react";
 import Link from 'next/link';
 import { UnAuth } from "@/components/UnAuth";
+import { Check } from 'lucide-react';
 
 import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
@@ -16,7 +17,6 @@ export default function SignDocument() {
     console.log(publicKey?.toBase58());
     const signatures = useQuery(api.documents.getDocumentByPubkey, { pubkey: publicKey?.toBase58() as string });
     const docs = useQuery(api.documents.getDocs);
-    console.log(signatures);
 
     if (status !== "authenticated") {
         return <UnAuth />;
@@ -28,10 +28,22 @@ export default function SignDocument() {
             <div className="flex flex-col gap-1">
                 {publicKey ? (
                 <>
+                    <div className="grid grid-cols-3 gap-4">
+                        <span className="font-bold">title</span>
+                        <span className="font-bold">id</span>
+                        <span className="font-bold">signed</span>
+                    </div>
+                    <hr className="w-full" />
                     {signatures ? signatures?.map((signature) => (
-                        <div key={signature._id} className="grid grid-cols-2">
+                        <div key={signature._id} className="grid grid-cols-3 gap-4">
                             <Link href={`/sign-document/${signature.documentId}`} className="text-blue-500 hover:underline">{docs?.find((doc) => doc._id === signature.documentId)?.title}</Link>
                             <span>{signature.documentId}</span>
+                            {signature.signature && (
+                                <span className="flex items-center">
+                                    <span>{signature.signature.slice(0, 5)}...{signature.signature.slice(-5)}</span>
+                                    <Check className="w-4 h-4 text-green-500 ml-1" />
+                                </span>
+                            )}
                         </div>
                     )):
                     <span>looks like you don&apos;t have any documents to sign.</span>}

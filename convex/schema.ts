@@ -13,9 +13,11 @@ export default defineSchema({
   }),
   signatures: defineTable({
     documentId: v.id("documents"),
-    pubkey: v.string(),
+    pubkey: v.optional(v.string()),
     signature: v.optional(v.string()),
-  }).index("by_pubkey", ["pubkey"]),
+  })
+  .index("by_pubkey", ["pubkey"])
+  .index("by_documentId", ["documentId"]),
   users: defineTable({
     pubkey: v.optional(v.string()),
     name: v.optional(v.string()),
