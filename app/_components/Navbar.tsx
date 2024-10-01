@@ -36,7 +36,7 @@ export default function Navbar() {
                 Roadmap
               </Button>
               <Button onClick={() => {}} className="mr-4 items-center justify-center" size="sm">
-                points <StarIcon className="h-auto w-4" />
+                points <StarIcon className="h-auto w-4 ml-1" />
               </Button>
               <Button onClick={() => signOut()} className="mr-4" size="sm">
                 logout

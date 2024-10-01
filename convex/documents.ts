@@ -33,3 +33,13 @@ export const getDocumentByPubkey = query({
         return signatureList;
     },
 });
+
+export const getDocumentById = query({
+    args: {
+        documentId: v.id("documents"),
+    },
+    handler: async (ctx, args) => {
+        const document = await ctx.db.get(args.documentId);
+        return document;
+    },
+});
