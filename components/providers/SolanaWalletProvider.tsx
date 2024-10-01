@@ -20,6 +20,7 @@ export function SolanaWalletProvider({
 }: {
   children: React.ReactNode;
 }) {
+  // TODO: switch to mainnet
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
