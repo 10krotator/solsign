@@ -4,10 +4,18 @@ import { v } from "convex/values";
 export const createUser = mutation({
     args: { publicKey: v.string() },
     handler: async (ctx, args) => {
-        const userId = await ctx.db.insert("users", {
-        pubkey: args.publicKey,
-        });
-        return userId;
+        const user = await ctx.db
+            .query("users")
+            .withIndex("by_pubkey", (q) => q.eq("pubkey", args.publicKey))
+            .first();
+        if (user) {
+            return user._id;
+        } else {
+            const userId = await ctx.db.insert("users", {
+                pubkey: args.publicKey,
+            });
+            return userId;
+        }
     },
 });
 
