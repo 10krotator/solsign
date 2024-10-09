@@ -75,3 +75,13 @@ export const writeSignature = mutation({
         }
     },
 });
+
+export const getSignatureByDocumentId = query({
+    args: {
+        documentId: v.id("documents"),
+    },
+    handler: async (ctx, args) => {
+        const signature = await ctx.db.query("signatures").withIndex("by_documentId", (q) => q.eq("documentId", args.documentId)).collect();
+        return signature;
+    },
+});

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 import { ButtonGradient } from "@/components/ui/button-gradient";
 import { UnAuth } from "@/components/UnAuth";
+import { Check } from "lucide-react";
 
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
@@ -25,6 +26,7 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
   const pubkeyShort = publicKey?.toBase58().slice(0, 5) + "..." + publicKey?.toBase58().slice(-5);
   const document = useQuery(api.documents.getDocumentById, { documentId: documentId as Id<"documents"> });
   const writeSign = useMutation(api.documents.writeSignature);
+  const signatures = useQuery(api.documents.getSignatureByDocumentId, { documentId: documentId as Id<"documents"> });
   const router = useRouter();
 
   const handleSign = async () => {
@@ -49,10 +51,18 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-2">
-      <span className="text-3xl font-bold leading-tight tracking-tighter mb-8">sign document {document?.title}</span>
-      <span>{publicKey?.toBase58()}</span>
+      <span className="text-3xl font-bold leading-tight tracking-tighter mb-8">sign document <span className="text-primary italic">{document?.title}</span></span>
       <p>document ID: {documentId}</p>
       <p>document title: {document?.title}</p>
+      <p>signers:</p>
+      <div className="flex flex-col gap-2">
+      {signatures && signatures.map((signature) => (
+        <div key={signature._id} className="flex flex-row gap-2">
+          <p>{signature.pubkey}</p>
+          {signature.signature && <p><Check className="w-4 h-4 text-green-500" /></p>}
+          </div>
+        ))}
+      </div>
       <ButtonGradient onClick={handleSign} className="mt-4">Sign Document as {pubkeyShort}</ButtonGradient>
     </div>
   )
