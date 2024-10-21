@@ -5,7 +5,7 @@ import { SignInButton } from "@/components/common/SignInButton";
 export const UnAuth = () => {
   const { connected } = useWallet();
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center mx-auto">
       <Hero />
       {connected ?
       <SignInButton />

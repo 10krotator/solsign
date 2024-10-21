@@ -50,7 +50,7 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-2">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-2 mx-auto">
       <span className="text-3xl font-bold leading-tight tracking-tighter mb-8">sign document <span className="text-primary italic">{document?.title}</span></span>
       <p>document ID: {documentId}</p>
       <p>document title: {document?.title}</p>

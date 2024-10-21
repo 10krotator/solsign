@@ -16,7 +16,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center mx-auto">
       <Hero />
       <div className="flex gap-4 justify-between">
         <Button onClick={() => router.push("/sign-document")}>

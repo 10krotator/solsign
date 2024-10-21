@@ -29,7 +29,7 @@ export default function SignDocument() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center">
+        <div className="min-h-screen flex flex-col items-center justify-center mx-auto">
             <h1 className="text-3xl font-bold leading-tight tracking-tighter mb-8">select document to sign</h1>
             <div className="flex flex-col gap-1">
                 {publicKey ? (

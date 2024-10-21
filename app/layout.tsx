@@ -30,6 +30,7 @@ export default function RootLayout({
       <body className={cn("min-h-screen antialiased")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <SolanaWalletProvider>
+            <Navbar />
             <SidebarProvider>
               <SidebarTrigger />
               <AppSidebar />
@@ -43,7 +44,6 @@ export default function RootLayout({
                 )}
               />
               <Toaster />
-              <Navbar />
               {/* Your existing layout content */}
               {children}
             </SidebarProvider>
