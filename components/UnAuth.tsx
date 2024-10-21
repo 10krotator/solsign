@@ -1,6 +1,6 @@
 import { Hero } from "./Hero";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { SignInButton } from "@/app/_components/SignInButton";
+import { SignInButton } from "@/components/common/SignInButton";
 
 export const UnAuth = () => {
   const { connected } = useWallet();
