@@ -15,7 +15,7 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <nav className="backdrop-blur-[2px] p-3 fixed top-2 left-80 right-10 z-50 rounded-full">
+    <nav className="backdrop-blur-[2px] p-3 fixed top-2 left-80 right-10 rounded-full">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <Link href="/" className="text-xl font-bold mr-4">
