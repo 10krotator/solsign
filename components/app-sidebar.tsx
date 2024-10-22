@@ -1,4 +1,4 @@
-import { Calendar, Home, Signature, Search, Settings, Upload } from "lucide-react"
+import { Home, Signature, Search, Settings, Upload } from "lucide-react"
 
 import {
   Sidebar,
