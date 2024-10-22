@@ -1,5 +1,5 @@
-import { BaseWalletMultiButton } from '@/app/components/wallet_connect_button/BaseWalletMultiButton';
-import { ButtonProps } from '@/app/components/wallet_connect_button/Button';
+import { BaseWalletMultiButton } from '@/components/wallet_connect_button/BaseWalletMultiButton';
+import { ButtonProps } from '@/components/wallet_connect_button/Button';
 
 const LABELS = {
   'change-wallet': 'Change wallet',
