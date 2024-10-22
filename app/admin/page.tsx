@@ -4,42 +4,44 @@ import React from "react"
 
 import { Button } from "@/components/ui/button";
 
-import { Connection, Transaction, SystemProgram } from "@solana/web3.js";
-import { clusterApiUrl } from "@solana/web3.js";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { Transaction, SystemProgram } from "@solana/web3.js";
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 
 const AdminPage = () => {
-  const { publicKey } = useWallet();
+  const { publicKey, signTransaction } = useWallet();
+  const { connection } = useConnection();
   const adminPubkey = process.env.NEXT_PUBLIC_ADMIN_PUBKEY;
 
-  const signThis = () => {
-    const signTransaction = async () => {
-      if (window.solana && window.solana.isConnected) {
-        try {
-          const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
-          const transaction = new Transaction().add(
-            SystemProgram.transfer({
-              fromPubkey: window.solana.publicKey,
-              toPubkey: window.solana.publicKey,
-              lamports: 100,
-            })
-          );
-          const { blockhash } = await connection.getLatestBlockhash();
-          transaction.recentBlockhash = blockhash;
-          transaction.feePayer = window.solana.publicKey;
+  const signThis = async () => {
+    if (!publicKey || !signTransaction) {
+      console.log("Wallet not connected");
+      return;
+    }
 
-          const signed = await window.solana.signTransaction(transaction);
-          console.log("Transaction signed:", signed);
-        } catch (error) {
-          console.error("Error signing transaction:", error);
-        }
-      } else {
-        console.log("Solana wallet not connected");
-      }
-    };
+    try {
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: publicKey,
+          lamports: 100,
+        })
+      );
 
-    signTransaction();
-  }
+      const { blockhash } = await connection.getLatestBlockhash();
+      transaction.recentBlockhash = blockhash;
+      transaction.feePayer = publicKey;
+
+      const signed = await signTransaction(transaction);
+      console.log("Transaction signed:", signed);
+
+      // Optional: Send the transaction
+      // const signature = await connection.sendRawTransaction(signed.serialize());
+      // console.log("Transaction sent:", signature);
+
+    } catch (error) {
+      console.error("Error signing transaction:", error);
+    }
+  };
 
   return (
     <div className="h-screen flex flex-col items-center justify-center gap-4">
