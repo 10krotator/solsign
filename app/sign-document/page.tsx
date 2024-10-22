@@ -13,19 +13,11 @@ import { api } from '@/convex/_generated/api';
 
 export default function SignDocument() {
     const { status } = useSession();
-    const router = useRouter();
 
     const { publicKey } = useWallet();
     console.log(publicKey?.toBase58());
     const signatures = useQuery(api.documents.getDocumentByPubkey, { pubkey: publicKey?.toBase58() as string });
     const docs = useQuery(api.documents.getDocs);
-
-    // FIXME: this gets triggered coz there's a delay in the hook execution & homepage is mounted first
-    if (!publicKey) {
-        setTimeout(() => {
-            router.push("/");
-        }, 1000);
-    }
 
     if (status !== "authenticated") {
         return <UnAuth />;
