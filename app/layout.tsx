@@ -3,8 +3,11 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
+// import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+// import { AppSidebar } from "@/components/app-sidebar";
+
+import ClientLayout from "@/components/ClientLayout";
+import { DeviceProvider } from "./context/device";
 
 import { cn } from "@/lib/utils";
 import { SolanaWalletProvider } from "@/components/providers/SolanaWalletProvider";
@@ -30,10 +33,8 @@ export default function RootLayout({
       <body className={cn("min-h-screen antialiased")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <SolanaWalletProvider>
-            <Navbar />
-            <SidebarProvider>
-              <SidebarTrigger />
-              <AppSidebar />
+            <DeviceProvider>
+              <Navbar />
               <GridPattern
                 width={10}
                 height={10}
@@ -45,8 +46,8 @@ export default function RootLayout({
               />
               <Toaster />
               {/* Your existing layout content */}
-              {children}
-            </SidebarProvider>
+              <ClientLayout>{children}</ClientLayout>
+            </DeviceProvider>
           </SolanaWalletProvider>
         </ThemeProvider>
       </body>

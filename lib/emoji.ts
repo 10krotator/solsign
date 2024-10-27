@@ -118,9 +118,6 @@ export function publicKeyToEmoji(publicKey: string | PublicKey): string {
   return emojiList[emojiIndex];
 }
 
-// Example usage
-const pubKey1 = new PublicKey('3Mpom9fkza2NBAY7LPLodD1SD1TnjLhB9Ljuj1fCu');
-console.log(publicKeyToEmoji(pubKey1)); // Output will be a deterministic emoji
 
-const pubKey2 = '3Mpom9fkza2NBAY7LPLodD1SD1TnjLhB9Ljuj1fCu';
+const pubKey2 = 'EGNPfLtNe4WAcAQpnNwmehmEANCgj7FnqLUHfT54eVgV';
 console.log(publicKeyToEmoji(pubKey2)); // Output will be the same emoji as above

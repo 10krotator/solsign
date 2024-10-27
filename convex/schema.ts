@@ -22,5 +22,8 @@ export default defineSchema({
     pubkey: v.optional(v.string()),
     name: v.optional(v.string()),
     avatar: v.optional(v.string()),
+    verified: v.optional(v.boolean()),
+    createdAt: v.optional(v.number()),
+    updatedAt: v.optional(v.number()),
   }).index("by_pubkey", ["pubkey"]),
 });
