@@ -71,7 +71,7 @@ export async function verifySignature(
  * @returns The message to be signed
  */
 export function generateAuthMessage(nonce: string): string {
-  return `Sign this message for authentication with Chakra Drive. Nonce: ${nonce}`;
+  return `Sign this message for authentication with Solana Sign. Nonce: ${nonce}`;
 }
 
 /**

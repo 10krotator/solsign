@@ -16,9 +16,9 @@ import {
   Github,
   Home,
   LucideIcon,
+  Signature,
   Trash2 as Trash,
   Twitter,
-  Users,
   X,
 } from 'lucide-react';
 // import Image from 'next/image';
@@ -52,8 +52,8 @@ function Header({ title }: { title: string }) {
         {!isMobile && <WalletMultiButton className="flex-shrink-0" />}
         {isMobile && (
           // <Image
-          //   onClick={() => window.open('https://www.chakra.network/', '_blank')}
-          //   src="/chakra_icon.png"
+          //   onClick={() => window.open('https://www.solsign-two.vercel.app/', '_blank')}
+          //   src="/favicon.ico"
           //   alt="logo"
           //   width={45}
           //   height={45}
@@ -90,11 +90,11 @@ function SidebarLabel({
 const SocialLinks = () => {
   return (
     <div className="mt-auto mb-4 flex justify-start space-x-4 px-4">
-      <Link href="https://twitter.com/chakra_ai" target="_blank" rel="noopener noreferrer" passHref>
+      <Link href="https://twitter.com/_solanasign" target="_blank" rel="noopener noreferrer" passHref>
         <Twitter className="h-5 w-5 text-gray-500 hover:text-gray-900 cursor-pointer" />
       </Link>
       <Link
-        href="https://github.com/chakra-Network/drive"
+        href="https://github.com/10krotator/solsign"
         target="_blank"
         rel="noopener noreferrer"
         passHref
@@ -122,9 +122,9 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
         path: '/',
       },
       {
-        label: "Shared with me",
-        icon: Users,
-        path: '/shared-with-me',
+        label: "Sign Document",
+        icon: Signature,
+        path: '/sign-document',
       },
       {
         label: "Roadmap",
@@ -152,7 +152,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
     const path = window.location.pathname;
     let index = 0;
     switch (path) {
-      case '/shared-with-me':
+      case '/sign-document':
         index = 1;
         break;
       case '/roadmap':
@@ -178,7 +178,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
         )}
         <div className="bg-white">
           <div
-            className="flex flex-col w-[100vw] h-[100vh] fixed inset-0 z-[10] bg-[#F6F6F6] rounded-r-3xl pt-4"
+            className="flex flex-col w-[100vw] h-[100vh] fixed inset-0 z-[10] bg-muted pt-4"
             style={{
               transform: sidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
               transition: 'transform 0.2s ease-in-out',
@@ -221,7 +221,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen w-full">
       <div className="bg-white">
-        <div className="flex flex-col w-[250px] h-full bg-[#142A1D0A] px-4 rounded-r-3xl">
+        <div className="flex flex-col w-[250px] h-full bg-muted px-4">
           <a
             className="flex items-center justify-center py-4 gap-4"
             href="https://www.solsign-two.vercel.app/"
@@ -254,7 +254,7 @@ export default function AppWithSidebarAndWallet({ children }: { children: React.
     () =>
       new TipLinkWalletAdapter({
         theme: 'light',
-        title: 'SolSign Two',
+        title: 'Solana Sign',
         clientId: '64f5daca-3d5a-4ce6-9431-9d3bc0f1e739',
         hideWalletOnboard: true,
       }),

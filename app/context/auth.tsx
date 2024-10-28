@@ -34,7 +34,7 @@ const TermsAndConditions = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <span className="text-blue-500 cursor-pointer hover:underline text-black">
+        <span className="text-blue-500 cursor-pointer hover:underline">
           Terms and Conditions
         </span>
       </DialogTrigger>
@@ -42,14 +42,13 @@ const TermsAndConditions = () => {
         <DialogHeader className="p-4 pb-2">
           <DialogTitle className="text-lg font-semibold">Terms and Conditions</DialogTitle>
           <p className="text-xs text-gray-500">
-            Please read these terms carefully before using Chakra Drive.
+            Please read these terms carefully before using Solana Sign.
           </p>
         </DialogHeader>
         <ScrollArea className="flex-grow px-4 pb-4">
           <div className="space-y-2 text-xs">
             <p>
-              Welcome to Chakra Drive, a service that allows direct file uploads to the Irys data
-              chain. By using our service, you agree to the following terms:
+              Welcome to Solana Sign, a service that allows you to sign documents with your Solana wallet. Your files are stored on the Irys chain. By using our service, you agree to the following terms:
             </p>
 
             <h3 className="font-bold">1. Data Permanence</h3>
@@ -60,7 +59,7 @@ const TermsAndConditions = () => {
               </li>
               <li>
                 For public uploads, files will be accessible forever, even if &ldquo;deleted&rdquo;
-                from your Chakra Drive interface.
+                from your Solana Sign interface.
               </li>
               <li>
                 When a public file is &ldquo;deleted,&rdquo; it will still exist on the Irys chain.
@@ -72,15 +71,14 @@ const TermsAndConditions = () => {
             <ul className="list-disc pl-4 space-y-1">
               <li>Private uploads cannot be shared.</li>
               <li>
-                Public uploads will be permanently accessible, even after deletion from your Chakra
-                Drive interface.
+                Public uploads will be permanently accessible, even after deletion from your Solana Sign interface.
               </li>
             </ul>
 
             <h3 className="font-bold">3. Content Responsibility</h3>
             <ul className="list-disc pl-4 space-y-1">
               <li>
-                Chakra Labs Inc is not responsible for content posted on Chakra Drive. All data is
+                Solana Sign is not responsible for content posted on Solana Sign. All data is
                 posted directly to the Irys chain.
               </li>
               <li>
@@ -103,12 +101,11 @@ const TermsAndConditions = () => {
             <h3 className="font-bold">4. Service Level Agreement and Liability</h3>
             <ul className="list-disc pl-4 space-y-1">
               <li>
-                Chakra Drive makes no guarantees regarding service level agreements (SLAs) and
+                Solana Sign makes no guarantees regarding service level agreements (SLAs) and
                 cannot be held liable for any outages or otherwise.
               </li>
               <li>
-                By signing the authentication message, you agree that you will not hold Chakra Labs
-                Inc, its affiliates, officers, directors, employees, or agents liable for any
+                By signing the authentication message, you agree that you will not hold Solana Sign, its affiliates, officers, directors, employees, or agents liable for any
                 direct, indirect, incidental, special, consequential or exemplary damages, including
                 but not limited to, damages for loss of profits, goodwill, use, data or other
                 intangible losses resulting from the use of or inability to use the service.
@@ -141,7 +138,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (token && storedPublicKey && publicKey && storedPublicKey === publicKey.toBase58()) {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_API_URL}/user/verify`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_API_URL}/users/verifyAuth`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -238,7 +235,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
       setIsAuthenticating(false);
     }
-  }, [publicKey, signMessage, signIn, setVisible, checkAuthStatus, isAuthenticating]);
+  }, [publicKey, signMessage, signIn, setVisible, checkAuthStatus, isAuthenticating, login]);
 
   const handleWalletChange = useCallback(() => {
     if (publicKey && currentPublicKey && publicKey.toBase58() !== currentPublicKey) {
@@ -295,7 +292,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 </div>
                 <div className="text-sm text-gray-500 text-center">
                   {!connectedButNotAuthenticated
-                    ? 'Select wallet to continue using Chakra Drive'
+                    ? 'Select wallet to continue using Solana Sign'
                     : 'You must prove you own the wallet to continue'}
                 </div>
                 {connectedButNotAuthenticated && (

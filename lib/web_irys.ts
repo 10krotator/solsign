@@ -55,7 +55,7 @@
 //       ...tags,
 //       {
 //         name: 'application-name',
-//         value: 'chakra-drive',
+//         value: 'solana-sign',
 //       },
 //     ],
 //   });

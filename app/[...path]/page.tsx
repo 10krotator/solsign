@@ -5,15 +5,9 @@ import { useAuth } from "@/app/context/auth";
 
 import { UnAuth } from "@/components/UnAuth";
 
-interface DynamicPageProps {
-  params: {
-    path: string[];
-  };
-}
 
-const DynamicPage: React.FC<DynamicPageProps> = ({ params }) => {
+const DynamicPage: React.FC = () => {
   const { status } = useAuth();
-  const { path } = params;
 
   if (status !== "authenticated") {
     return <UnAuth />;
@@ -24,7 +18,9 @@ const DynamicPage: React.FC<DynamicPageProps> = ({ params }) => {
       <h1 className="text-3xl font-bold leading-tight tracking-tighter">
         Dynamic Page
       </h1>
-      <p>Current path: {path.join("/")}</p>
+      <span className="text-sm text-muted-foreground">
+        you landed on a dev page
+      </span>
       {/* Add more content here based on the dynamic path */}
     </div>
   );

@@ -152,67 +152,67 @@ export async function verifySignature(
         }
     }
 
-    export async function generateToken(publicKey: string): Promise<string> {
+export async function generateToken(publicKey: string): Promise<string> {
         const secret = new TextEncoder().encode(process.env.JWT_SECRET);
         const token = await new jose.SignJWT({ publicKey })
-          .setProtectedHeader({ alg: 'HS256' })
-          .setIssuedAt()
-          .setExpirationTime('24h')
-          .sign(secret);
+            .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
+            .setExpirationTime('24h')
+            .sign(secret);
         return token;
-      }
+    }
 
 
-    export const verifyAuth = httpAction(async (ctx, request) => {
+export const verifyAuth = httpAction(async (ctx, request) => {
         const authHeader = request.headers.get('Authorization');
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-          return new Response(
+            return new Response(
             JSON.stringify({ success: false, error: 'No token provided' }),
             {
-              status: 401,
-              headers: { 'Content-Type': 'application/json' },
+                status: 401,
+                headers: { 'Content-Type': 'application/json' },
             }
-          );
+        );
         }
         try {
-          const token = authHeader.split(' ')[1];
-          const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-          const { payload } = await jose.jwtVerify(token, secret);
-          return new Response(
+            const token = authHeader.split(' ')[1];
+            const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+            const { payload } = await jose.jwtVerify(token, secret);
+            return new Response(
             JSON.stringify({
-              success: true,
-              data: {
-                verified: true,
-                payload
-              }
+                success: true,
+                data: {
+                    verified: true,
+                    payload
+                }
             }),
             {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' },
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
             }
-          );
+        );
         } catch (error) {
-          console.error('Token verification error:', error);
-          return new Response(
+            console.error('Token verification error:', error);
+            return new Response(
             JSON.stringify({ success: false, error: 'Token verification failed' }),
             {
-              status: 401,
-              headers: { 'Content-Type': 'application/json' },
+                status: 401,
+                headers: { 'Content-Type': 'application/json' },
             }
-          );
+        );
         }
-      });
+    });
 
 
 export async function verifyToken(token: string): Promise<TokenPayload | null> {
         if (!token) return null;
 
-            try {
+        try {
             const secret = new TextEncoder().encode(process.env.JWT_SECRET);
             const decoded = await jose.jwtVerify(token, secret) as unknown as TokenPayload;
             return decoded;
-            } catch (error) {
+        } catch (error) {
             console.error('Error verifying token:', error);
             return null;
-        }
     }
+}

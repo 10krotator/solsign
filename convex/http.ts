@@ -4,7 +4,7 @@ import { verifyAuth } from "./users";
 export const http = httpRouter();
 
 http.route({
-  path: "/user/verify",
+  path: "/users/verifyAuth",
   method: "GET",
   handler: verifyAuth,
 });

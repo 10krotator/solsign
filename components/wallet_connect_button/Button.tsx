@@ -23,7 +23,7 @@ export function Button({
 }: ButtonProps): React.ReactElement {
   return (
     <button
-      className={`chakra-wallet-adapter-button ${className}`}
+      className={`solsign-wallet-adapter-button ${className}`}
       disabled={disabled}
       style={style}
       onClick={onClick}
