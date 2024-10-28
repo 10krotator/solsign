@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/app/context/auth";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { Hero } from "@/components/Hero";
 import { UnAuth } from "@/components/UnAuth";
 
 export default function Home() {
-  const { status } = useSession();
+  const { status } = useAuth();
   const router = useRouter();
 
   if (status !== "authenticated") {

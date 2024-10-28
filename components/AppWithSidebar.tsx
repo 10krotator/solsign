@@ -9,18 +9,19 @@ import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { TipLinkWalletAdapter } from '@tiplink/wallet-adapter';
 import { DefaultTipLinkWalletModalProvider } from '@tiplink/wallet-adapter-react-ui';
+import Logo from "./common/Logo";
 
 import {
   AlignJustify,
-  Files,
   Github,
+  Home,
   LucideIcon,
   Trash2 as Trash,
   Twitter,
   Users,
   X,
 } from 'lucide-react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -50,13 +51,14 @@ function Header({ title }: { title: string }) {
       >
         {!isMobile && <WalletMultiButton className="flex-shrink-0" />}
         {isMobile && (
-          <Image
-            onClick={() => window.open('https://www.chakra.network/', '_blank')}
-            src="/chakra_icon.png"
-            alt="logo"
-            width={45}
-            height={45}
-          />
+          // <Image
+          //   onClick={() => window.open('https://www.chakra.network/', '_blank')}
+          //   src="/chakra_icon.png"
+          //   alt="logo"
+          //   width={45}
+          //   height={45}
+          // />
+          <Logo />
         )}
       </div>
     </div>
@@ -77,10 +79,10 @@ function SidebarLabel({
       }`}
       onClick={onClick}
     >
-      <div className="text-secondary">
+      <div className="text-primary">
         <Icon {...defaultIconProps} />
       </div>
-      <p className="ml-2.5 text-md text-secondary text-black">{label}</p>
+      <p className="ml-2.5 text-md text-primary uppercase font-mono">{label}</p>
     </button>
   );
 }
@@ -115,19 +117,19 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
       {
-        label: 'All Files',
-        icon: Files,
+        label: "Home",
+        icon: Home,
         path: '/',
       },
       {
-        label: 'Shared with me',
+        label: "Shared with me",
         icon: Users,
         path: '/shared-with-me',
       },
       {
-        label: 'Trash',
+        label: "Roadmap",
         icon: Trash,
-        path: '/trash',
+        path: '/roadmap',
       },
     ],
     []
@@ -153,7 +155,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
       case '/shared-with-me':
         index = 1;
         break;
-      case '/trash':
+      case '/roadmap':
         index = 2;
         break;
       default:
@@ -226,7 +228,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
             target="_blank"
             rel="noreferrer"
           >
-            <Image src="/chakra_word_logo.svg" alt="logo" width={450} height={450} />
+            <Logo />
           </a>
           {sidebarItems.map((item, index) => (
             <SidebarLabel

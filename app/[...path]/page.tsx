@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/app/context/auth";
 
 import { UnAuth } from "@/components/UnAuth";
 
@@ -12,7 +12,7 @@ interface DynamicPageProps {
 }
 
 const DynamicPage: React.FC<DynamicPageProps> = ({ params }) => {
-  const { status } = useSession();
+  const { status } = useAuth();
   const { path } = params;
 
   if (status !== "authenticated") {

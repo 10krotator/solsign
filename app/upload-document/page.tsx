@@ -1,21 +1,21 @@
 'use client'
 
 import { useState, FormEvent } from 'react';
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useMutation } from 'convex/react';
-import { api } from '@/convex/_generated/api';
-import { toast } from 'sonner';
+import { useAuth } from "@/app/context/auth";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
 
 import { UnAuth } from "@/components/UnAuth";
 
-import { UploadComponent } from './_components/UploadComponent';
-import { WalletAddressInputs } from './_components/WalletAddressInputs';
-import { Button } from '@/components/ui/button';
+import { UploadComponent } from "./_components/UploadComponent";
+import { WalletAddressInputs } from "./_components/WalletAddressInputs";
+import { Button } from "@/components/ui/button";
 
 const UploadDocumentPage = () => {
-    const { status } = useSession();
+    const { status } = useAuth();
     const router = useRouter();
     const { publicKey } = useWallet();
     const [walletAddresses, setWalletAddresses] = useState<string[]>(['']);

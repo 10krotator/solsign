@@ -1,17 +1,17 @@
 "use client";
 
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useWallet } from "@solana/wallet-adapter-react";
 
-import { useSession } from "next-auth/react";
-import Link from 'next/link';
+import Link from "next/link";
 import { UnAuth } from "@/components/UnAuth";
-import { Check } from 'lucide-react';
+import { Check } from "lucide-react";
 
-import { useQuery } from 'convex/react';
-import { api } from '@/convex/_generated/api';
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useAuth } from "@/app/context/auth";
 
 export default function SignDocument() {
-    const { status } = useSession();
+    const { status } = useAuth();
 
     const { publicKey } = useWallet();
     console.log(publicKey?.toBase58());

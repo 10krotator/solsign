@@ -2,7 +2,6 @@
 
 import React from "react"
 import { useWallet } from '@solana/wallet-adapter-react';
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { ButtonGradient } from "@/components/ui/button-gradient";
@@ -12,6 +11,7 @@ import { Check } from "lucide-react";
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Id } from "@/convex/_generated/dataModel";
+import { useAuth } from "@/app/context/auth";
 
 interface SignDocumentPageProps {
   params: {
@@ -20,7 +20,7 @@ interface SignDocumentPageProps {
 }
 
 const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
-  const { status } = useSession();
+  const { status } = useAuth();
   const { documentId } = params;
   const { publicKey, signMessage } = useWallet();
   const pubkeyShort = publicKey?.toBase58().slice(0, 5) + "..." + publicKey?.toBase58().slice(-5);
