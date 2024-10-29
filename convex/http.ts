@@ -1,12 +1,14 @@
-import { httpRouter} from "convex/server";
-import { verifyAuth } from "./users";
+// TODO: Thoon api
+// HTTP ACTION EXAMPLE https://github.com/get-convex/convex-demos/blob/main/http/convex/http.ts
 
-export const http = httpRouter();
 
-http.route({
-  path: "/users/verifyAuth",
-  method: "GET",
-  handler: verifyAuth,
-});
 
-export default http;
+// import { httpRouter} from "convex/server"export const http = httpRouter();
+
+// http.route({
+//   path: "/users/verifyAuth",
+//   method: "GET",
+//   // handler: verifyAuth,
+// });
+
+// export default http;
