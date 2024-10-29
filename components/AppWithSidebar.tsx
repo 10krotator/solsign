@@ -18,7 +18,7 @@ import {
   LucideIcon,
   Signature,
   File,
-  Trash2 as Trash,
+  Map as Roadmap,
   Twitter,
   X,
 } from 'lucide-react';
@@ -127,7 +127,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Roadmap",
-        icon: Trash,
+        icon: Roadmap,
         path: '/roadmap',
       },
     ],
