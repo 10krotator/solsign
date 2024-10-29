@@ -48,13 +48,26 @@ export const getUserByPublicKey = query({
 export const login = mutation({
     args: {
         publicKey: v.string(),
-        signature: v.string(),
-        message: v.string(),
+        signature: v.optional(v.string()),
+        message: v.optional(v.string()),
+        verify: v.optional(v.boolean()),
+        token: v.optional(v.string()),
     },
-    handler: async (ctx, { publicKey, signature, message }) => {
-        console.log('Received login request:', { publicKey, signature, message });
+    handler: async (ctx, { publicKey, signature, message, verify, token }) => {
+        // Handle token verification
+        if (verify && token) {
+            try {
+                const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+                const { payload } = await jose.jwtVerify(token, secret);
+                return { success: true, payload };
+            } catch (error) {
+                console.error('Token verification error:', error);
+                return { success: false, error: 'Invalid token' };
+            }
+        }
 
-        if (!publicKey || !signature || !message) {
+        // Regular login flow
+        if (!signature || !message) {
             console.error('Missing required fields');
             return { success: false, error: 'Missing required fields' };
         }
@@ -62,76 +75,56 @@ export const login = mutation({
         try {
             const isValidSignature = await verifySignature(publicKey, signature, message);
             if (!isValidSignature) {
-            console.error('Invalid signature');
-            return { success: false, error: 'Invalid signature' };
+                console.error('Invalid signature');
+                return { success: false, error: 'Invalid signature' };
             }
 
             const user = await ctx.db
-            .query('users')
-            .withIndex("by_pubkey", (q) => q.eq("pubkey", publicKey))
-            .first();
+                .query('users')
+                .withIndex("by_pubkey", (q) => q.eq("pubkey", publicKey))
+                .first();
 
-        let isNewUser = false;
+            let isNewUser = false;
 
             if (!user) {
-            console.log('Creating new user');
-            await ctx.db.insert('users', {
-                pubkey: publicKey,
-                // storageBytesAvailable: 100 * 1024 * 1024, // 100 MB
-                // storageUsed: 0,
-                verified: true,
-                createdAt: Date.now(),
-                updatedAt: Date.now(),
-            });
-            isNewUser = true;
+                console.log('Creating new user');
+                await ctx.db.insert('users', {
+                    pubkey: publicKey,
+                    verified: true,
+                    createdAt: Date.now(),
+                    updatedAt: Date.now(),
+                });
+                isNewUser = true;
             } else if (!user.verified) {
-            console.log('Updating unverified user');
-            await ctx.db.patch(user._id, {
-                verified: true,
-                // storageBytesAvailable: 100 * 1024 * 1024, // 100 MB
-                updatedAt: Date.now(),
-            });
-        }
+                console.log('Updating unverified user');
+                await ctx.db.patch(user._id, {
+                    verified: true,
+                    updatedAt: Date.now(),
+                });
+            }
 
-        // const pendingShares = await ctx.db
-        //   .query('fileShares')
-        //   .filter(q => q.eq(q.field('sharedWithPK'), publicKey))
-        //   .collect();
+            const token = await generateToken(publicKey);
 
-        const token = await generateToken(publicKey);
-
-        console.log('Login successful');
+            console.log('Login successful');
             return {
-            success: true,
-            data: {
-                token,
-                user: {
-                publicKey: user ? user.pubkey : publicKey,
-                //   storageBytesAv ailable: user ? user.storageBytesAvailable : 100 * 1024 * 1024,
-                //   storageUsed: user ? user.storageUsed : 0,
-                verified: true,
-                createdAt: user ? user.createdAt : Date.now(),
-                updatedAt: user ? user.updatedAt : Date.now(),
+                success: true,
+                data: {
+                    token,
+                    user: {
+                        publicKey: user ? user.pubkey : publicKey,
+                        verified: true,
+                        createdAt: user ? user.createdAt : Date.now(),
+                        updatedAt: user ? user.updatedAt : Date.now(),
+                    },
+                    isNewUser,
                 },
-                isNewUser,
-                // pendingShares: await Promise.all(pendingShares.map(async (share) => {
-                //   const fileEntry = await ctx.db.get(share.fileEntryId);
-                //   return {
-                //     id: share._id,
-                //     fileId: share.fileEntryId,
-                //     fileName: fileEntry ? fileEntry.name : 'Unknown',
-                //     sharedBy: share.ownerPK,
-                //     permission: share.permission,
-                //   };
-                // })),
-            },
             };
         } catch (error) {
             console.error('Login error:', error);
             return { success: false, error: 'Internal server error' };
         }
-        },
-    });
+    },
+});
 
 export async function verifySignature(
         publicKey: string,

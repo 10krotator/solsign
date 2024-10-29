@@ -138,31 +138,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const storedPublicKey = localStorage.getItem('publicKey');
 
     if (token && storedPublicKey && publicKey && storedPublicKey === publicKey.toBase58()) {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_API_URL}/users/verifyAuth`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
+        try {
+            const isValid = await login({
+                publicKey: storedPublicKey,
+                token: token,
+                verify: true
+            });
 
-        const data = await response.json();
-        
-        if (data.success) {
-          setStatus('authenticated');
-          setCurrentPublicKey(storedPublicKey);
-          return true;
+            if (isValid) {
+                setStatus('authenticated');
+                setCurrentPublicKey(storedPublicKey);
+                return true;
+            }
+        } catch (err) {
+            console.error('Token verification failed:', err);
         }
-      } catch (err) {
-        console.error('Token verification failed:', err);
-      }
     }
 
     setStatus('unauthenticated');
     setCurrentPublicKey(null);
     return false;
-  }, [publicKey]);
+}, [publicKey, login]);
 
   const logout = useCallback(() => {
     localStorage.removeItem('authToken');

@@ -26,7 +26,7 @@ export const createDocument = mutation({
 
 export const getDocumentByPubkey = query({
     args: {
-        pubkey: v.string(),
+        pubkey: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
         const signatureList = await ctx.db.query("signatures").withIndex("by_pubkey", (q) => q.eq("pubkey", args.pubkey)).collect();
