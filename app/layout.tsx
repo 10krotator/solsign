@@ -31,7 +31,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className={cn("min-h-screen antialiased")}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <SolanaWalletProvider>
             <DeviceProvider>
               {/* <Navbar /> */}
