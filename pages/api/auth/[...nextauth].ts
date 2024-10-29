@@ -12,33 +12,34 @@ export default NextAuth({
             signature: { label: "Signature", type: "text" },
             message: { label: "Message", type: "text" },
         },
-        async authorize(credentials) {
-            if (
-            !credentials?.publicKey ||
-            !credentials?.signature ||
-            !credentials?.message
-            ) {
-            return null;
+        async authorize(credentials: Partial<Record<"publicKey" | "signature" | "message", unknown>>) {
+            if (!credentials?.signature || !credentials?.publicKey || !credentials?.message) {
+                throw new Error("Missing credentials");
             }
 
-            const publicKey = new PublicKey(credentials.publicKey);
-            const signature = Buffer.from(credentials.signature, "hex");
-            const message = new TextEncoder().encode(credentials.message);
+            try {
+                const publicKey = new PublicKey(credentials.publicKey as string);
+                const signature = Buffer.from(credentials.signature as string, "hex");
+                const message = new TextEncoder().encode(credentials.message as string);
 
-            const isValid = nacl.sign.detached.verify(
-            message,
-            signature,
-            publicKey.toBytes(),
-            );
+                const isValid = nacl.sign.detached.verify(
+                message,
+                signature,
+                publicKey.toBytes(),
+                );
 
-            if (isValid) {
-            return {
-                id: publicKey.toBase58(),
-                name: publicKey.toBase58(),
-            };
+                if (isValid) {
+                return {
+                    id: publicKey.toBase58(),
+                    name: publicKey.toBase58(),
+                };
+                }
+
+                return null;
+            } catch (error) {
+                console.error("Auth error:", error);
+                return null;
             }
-
-            return null;
         },
         }),
     ],
