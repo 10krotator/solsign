@@ -1,5 +1,6 @@
 import React from 'react';
 import type { CSSProperties, MouseEvent, PropsWithChildren, ReactElement } from 'react';
+import { Button as SolSignButton } from '../ui/button';
 
 export interface ButtonProps extends PropsWithChildren {
   className?: string;
@@ -22,7 +23,7 @@ export function Button({
   children,
 }: ButtonProps): React.ReactElement {
   return (
-    <button
+    <SolSignButton
       className={`solsign-wallet-adapter-button ${className}`}
       disabled={disabled}
       style={style}
@@ -33,6 +34,6 @@ export function Button({
       {startIcon && <div className="wallet-adapter-button-start-icon">{startIcon}</div>}
       {children}
       {endIcon && <i className="wallet-adapter-button-end-icon">{endIcon}</i>}
-    </button>
+    </SolSignButton>
   );
 }

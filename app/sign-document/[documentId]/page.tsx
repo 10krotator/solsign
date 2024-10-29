@@ -14,14 +14,15 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useAuth } from "@/app/context/auth";
 
 interface SignDocumentPageProps {
-  params: {
+  params: Promise<{
     documentId: string;
-  }
+  }>
 }
 
 const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
   const { status } = useAuth();
-  const { documentId } = params;
+  const resolvedParams = React.use(params);
+  const { documentId } = resolvedParams;
   const { publicKey, signMessage } = useWallet();
   const pubkeyShort = publicKey?.toBase58().slice(0, 5) + "..." + publicKey?.toBase58().slice(-5);
   const document = useQuery(api.documents.getDocumentById, { documentId: documentId as Id<"documents"> });

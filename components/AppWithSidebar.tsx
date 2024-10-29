@@ -17,6 +17,7 @@ import {
   Home,
   LucideIcon,
   Signature,
+  File,
   Trash2 as Trash,
   Twitter,
   X,
@@ -41,7 +42,7 @@ function Header({ title }: { title: string }) {
   return (
     <div className="flex justify-between items-center w-full gap-3">
       <div className="flex flex-col flex-shrink-0">
-        {!isMobile && <h1 className="text-2xl font-semibold text-[#142A1D]">{title}</h1>}
+        {!isMobile && <h1 className="text-2xl font-semibold leading-tight tracking-tighter lowercase">{title}</h1>}
       </div>
       <div
         className="ml-4 flex items-center gap-4"
@@ -51,13 +52,6 @@ function Header({ title }: { title: string }) {
       >
         {!isMobile && <WalletMultiButton className="flex-shrink-0" />}
         {isMobile && (
-          // <Image
-          //   onClick={() => window.open('https://www.solsign-two.vercel.app/', '_blank')}
-          //   src="/favicon.ico"
-          //   alt="logo"
-          //   width={45}
-          //   height={45}
-          // />
           <Logo />
         )}
       </div>
@@ -74,8 +68,8 @@ function SidebarLabel({
   return (
     <button
       type="button"
-      className={`flex items-center justify-left hover:bg-[#63E7871A] select-none px-4 py-2 rounded-lg mb-4 cursor-pointer w-full ${
-        isActive ? 'bg-[#63E7871A] font-semibold' : ''
+      className={`flex items-center justify-left hover:bg-[#9945FF1A] select-none px-4 py-2 rounded-lg mb-4 cursor-pointer w-full ${
+        isActive ? 'bg-[#9945FF1A] font-semibold' : ''
       }`}
       onClick={onClick}
     >
@@ -114,7 +108,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
 
-  const sidebarItems: SidebarItem[] = useMemo(
+  const sidebarItems = useMemo(
     () => [
       {
         label: "Home",
@@ -125,6 +119,11 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
         label: "Sign Document",
         icon: Signature,
         path: '/sign-document',
+      },
+      {
+        label: "Upload Document",
+        icon: File,
+        path: '/upload-document',
       },
       {
         label: "Roadmap",
@@ -157,6 +156,9 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
         break;
       case '/roadmap':
         index = 2;
+        break;
+      case '/upload-document':
+        index = 3;
         break;
       default:
         index = 0;
@@ -192,7 +194,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
                 onClick={() => setSidebarOpen(false)}
               />
               <WalletMultiButton
-                className="!bg-transparent !border-green-600 !border-opacity-20 !px-2"
+                className="!bg-transparent !border-purple-600 !border-opacity-20 !px-2"
                 style={{
                   display: sidebarOpen ? '' : 'none',
                 }}

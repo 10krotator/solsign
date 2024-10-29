@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
@@ -282,7 +283,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col items-center gap-4 p-8 bg-white rounded-lg">
             {loading ? (
               <div className="flex items-center gap-2">
-                <Loader2 className="h-4 w-4 animate-spin text-green-500" />
+                <Loader2 className="h-4 w-4 animate-spin" />
                 <div className="text-sm text-gray-500">Loading...</div>
               </div>
             ) : (
@@ -301,14 +302,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                   </div>
                 )}
                 <div className="flex flex-row gap-4 mt-4">
-                  <button
+                  <Button
                     type="button"
+                    variant="secondary"
                     onClick={() => setStatus('rejected')}
-                    className="btn-secondary font-thin"
                   >
                     Cancel
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
                     onClick={() => {
                       if (!publicKey) {
@@ -321,7 +322,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     className="btn-tertiary font-semibold"
                   >
                     {!connectedButNotAuthenticated ? 'Connect' : 'Sign'}
-                  </button>
+                  </Button>
                 </div>
               </>
             )}
