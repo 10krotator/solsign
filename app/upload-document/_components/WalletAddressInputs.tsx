@@ -24,8 +24,8 @@ export const WalletAddressInputs = ({ walletAddresses, setWalletAddresses }: Wal
   };
 
   return (
-    <div className="space-y-4">
-      <span className="text-2xl font-semibold leading-tight tracking-tighter mb-2">add wallets to sign the document</span>
+    <div className="space-y-2">
+      <span className="text-lg font-semibold leading-tight tracking-tight">add wallets to sign the document</span>
       {walletAddresses.map((address, index) => (
         <div key={index} className="flex gap-2">
           <Input
