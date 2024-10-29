@@ -49,7 +49,7 @@ const RoadmapPage = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
-            <div className="w-full max-w-4xl bg-secondary rounded-lg shadow-md p-8">
+            <div className="w-full max-w-4xl bg-muted rounded-lg shadow-md p-8">
                 <h1 className="text-3xl font-bold leading-tight tracking-tighter mb-6 text-center">project roadmap</h1>
                 <div className="space-y-6">
                     {roadmap.map((item, index) => (

@@ -31,6 +31,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className={cn("min-h-screen antialiased")}>
+        {/* TODO: make this default to system ... dark mode is throwing color errors */}
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <SolanaWalletProvider>
             <DeviceProvider>
