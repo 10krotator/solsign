@@ -1,6 +1,6 @@
 export const Hero = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center mt-24">
       <h1 className="text-4xl font-bold leading-tight tracking-tighter">
         welcome to{" "}
         <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 text-transparent bg-clip-text">

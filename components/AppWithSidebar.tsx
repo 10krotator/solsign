@@ -226,7 +226,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
         <div className="flex flex-col w-[250px] h-full bg-muted px-4">
           <a
             className="flex items-center justify-center py-4 gap-4"
-            href="https://www.solsign-two.vercel.app/"
+            href="https://solsign-two.vercel.app/"
             target="_blank"
             rel="noreferrer"
           >

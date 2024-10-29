@@ -11,9 +11,9 @@ import { DeviceProvider } from "./context/device";
 
 import { cn } from "@/lib/utils";
 import { SolanaWalletProvider } from "@/components/providers/SolanaWalletProvider";
-// import Navbar from "../components/common/Navbar";
 import { GridPattern } from "@/components/ui/grid-pattern";
 import { Toaster } from "sonner";
+
 export const metadata: Metadata = {
   title: "solana sign",
   description: "sign documents using solana wallets",
@@ -35,7 +35,6 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <SolanaWalletProvider>
             <DeviceProvider>
-              {/* <Navbar /> */}
               <GridPattern
                 width={10}
                 height={10}
