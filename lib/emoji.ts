@@ -1,6 +1,7 @@
 import { PublicKey } from '@solana/web3.js';
 
 const emojiList = [
+  '🚀',
   '🤠',
   '😇',
   '🤩',
@@ -66,6 +67,7 @@ const emojiList = [
   '🧲',
   '🧭',
   '🧩',
+  '🍕',
   '🎭',
   '🎨',
   '🛸',
@@ -79,6 +81,12 @@ const emojiList = [
   '🧫',
   '📡',
   '🔧',
+  '🍔',
+  '🍟',
+  '🍗',
+  '🍖',
+  '🍤',
+  '🍳',
 ];
 
 export function publicKeyToEmoji(publicKey: string | PublicKey): string {
