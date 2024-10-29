@@ -288,16 +288,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               </div>
             ) : (
               <>
-                <div className="text-2xl font-semibold text-[#142A1D]">
+                <div className="text-2xl font-semibold text-primary lowercase leading-tight tracking-tighter">
                   {!connectedButNotAuthenticated ? 'Connect Wallet' : 'Prove Ownership'}
                 </div>
-                <div className="text-sm text-gray-500 text-center">
+                <div className="text-sm text-gray-500 text-center lowercase">
                   {!connectedButNotAuthenticated
                     ? 'Select wallet to continue using Solana Sign'
                     : 'You must prove you own the wallet to continue'}
                 </div>
                 {connectedButNotAuthenticated && (
-                  <div className="text-sm text-gray-700 text-center">
+                  <div className="text-sm text-gray-700 text-center lowercase">
                     By signing, you acknowledge and accept the <TermsAndConditions />.
                   </div>
                 )}

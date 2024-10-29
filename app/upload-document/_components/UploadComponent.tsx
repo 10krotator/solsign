@@ -40,7 +40,7 @@ export const UploadComponent = ({ onFileSelect }: UploadComponentProps) => {
 
   return (
     <div>
-      <span className="text-2xl font-bold leading-tight tracking-tighter mb-6 text-center">upload document</span>
+      <span className="text-2xl font-semibold leading-tight tracking-tighter mb-6 text-center">upload document</span>
       <Input
         id="file-upload"
         type="file"
@@ -48,10 +48,12 @@ export const UploadComponent = ({ onFileSelect }: UploadComponentProps) => {
         className="w-full mt-2 file:bg-blue-500 file:rounded-sm file:text-white file:cursor-pointer"
       />
       {selectedFile && (
-        <div className="mt-4">
-          <p>Selected file: {selectedFile.name}</p>
-          <Progress value={uploadProgress} className="w-full mt-2" />
-          <p className="text-sm text-gray-500 mt-1">upload progress: {uploadProgress}%</p>
+        <div className="text-sm font-light mt-4">
+          <p>selected file: {selectedFile.name}</p>
+          <Progress value={uploadProgress} className="w-full mt-2 h-2" />
+          <div className="flex items-center gap-2 mt-1">
+            <p className="text-black">upload progress: {uploadProgress}%</p>
+          </div>
         </div>
       )}
     </div>
