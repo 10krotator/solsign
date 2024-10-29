@@ -111,12 +111,7 @@ body {
 }
 
 .solsign-wallet-adapter-button {
-  border-radius: 4px;
-  border: 1px solid rgba(229, 229, 229, 0.5);
-  box-shadow: 0px 0px 20px 0px rgba(153, 69, 255, 0.3);
-  background-color: white;
-  color: #142a1d;
-  cursor: pointer;
+  position: relative;
   display: flex;
   align-items: center;
   font-family: inherit;
@@ -125,7 +120,16 @@ body {
   height: 48px;
   line-height: 48px;
   padding: 0 24px;
+  cursor: pointer;
+  color: #142a1d;
   border-radius: 4px;
+  background: white;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  border: double 1px transparent;
+  background-image: linear-gradient(white, white),
+                    conic-gradient(from 90deg at 50% 50%, #9945FF 0%, #14F195 50%, #9945FF 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 .solsign-wallet-adapter-button:not([disabled]):hover {

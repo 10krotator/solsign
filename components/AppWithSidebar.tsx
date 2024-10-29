@@ -68,8 +68,8 @@ function SidebarLabel({
   return (
     <button
       type="button"
-      className={`flex items-center justify-left hover:bg-[#9945FF1A] select-none px-4 py-2 rounded-lg mb-4 cursor-pointer w-full ${
-        isActive ? 'bg-[#9945FF1A] font-semibold' : ''
+      className={`flex items-center justify-left hover:bg-primary/10 select-none px-4 py-2 rounded-lg mb-2 cursor-pointer w-full ${
+        isActive ? 'bg-primary/10 font-semibold' : ''
       }`}
       onClick={onClick}
     >
