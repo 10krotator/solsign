@@ -3,7 +3,6 @@ import { BaseWalletConnectionButton } from "./BaseWalletConnectionButton";
 import { useDevice } from "@/app/context/device";
 import { publicKeyToEmoji } from "@/lib/emoji";
 import { useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
 import { useWalletModal } from "@tiplink/wallet-adapter-react-ui";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
@@ -19,35 +18,6 @@ type Props = Omit<ButtonProps, "onClick"> & {
   };
 };
 
-function publicKeyToPastelColor(publicKey: string | PublicKey): string {
-  let key: string;
-
-  if (typeof publicKey === 'string') {
-    key = publicKey;
-  } else if (publicKey instanceof PublicKey) {
-    key = publicKey.toBase58();
-  } else {
-    throw new Error('Invalid public key format');
-  }
-
-  const seed = key.slice(0, 12);
-
-  let seedNumber = 0;
-  for (let i = 0; i < seed.length; i += 1) {
-    seedNumber += seed.charCodeAt(i);
-  }
-
-  const r = 155 + (seedNumber % 100);
-  const g = 155 + ((seedNumber * 3) % 100);
-  const b = 155 + ((seedNumber * 7) % 100);
-
-  const toHex = (value: number) => {
-    const hex = value.toString(16);
-    return hex.length === 1 ? `0${hex}` : hex;
-  };
-
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-}
 
 export function BaseWalletMultiButton({ children, labels, ...props }: Props) {
   const { isMobile } = useDevice();
@@ -126,10 +96,9 @@ export function BaseWalletMultiButton({ children, labels, ...props }: Props) {
           startIcon={
             connected && publicKey ? (
               <div
-                className="rounded-full p-4 relative border-2 border-[#E5E5E5]"
-                style={{ backgroundColor: publicKeyToPastelColor(publicKey) }}
+                className="rounded-full p-2 relative border-2 border-transparent"
               >
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center text-2xl">
                   {publicKeyToEmoji(publicKey)}
                 </div>
               </div>

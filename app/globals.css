@@ -121,12 +121,13 @@ body {
   line-height: 48px;
   padding: 0 24px;
   cursor: pointer;
-  color: #142a1d;
+  /* Using the primary text color from the theme instead of hardcoded dark green */
+  color: hsl(var(--primary-foreground));
   border-radius: 4px;
   background: white;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.1);
   border: double 1px transparent;
-  background-image: linear-gradient(white, white),
+  background-image: linear-gradient(#09090b, #09090b),
                     conic-gradient(from 90deg at 50% 50%, #9945FF 0%, #14F195 50%, #9945FF 100%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
