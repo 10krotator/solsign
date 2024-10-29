@@ -19,11 +19,6 @@ interface SignDocumentPageProps {
   }>
 }
 
-interface Credentials {
-    publicKey: string;
-    signature: string;
-    message: string;
-}
 
 const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
   const { status } = useAuth();
