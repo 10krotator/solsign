@@ -124,7 +124,7 @@ body {
   color: #142a1d;
   border-radius: 4px;
   background: white;
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.1);
   border: double 1px transparent;
   background-image: linear-gradient(white, white),
                     conic-gradient(from 90deg at 50% 50%, #9945FF 0%, #14F195 50%, #9945FF 100%);

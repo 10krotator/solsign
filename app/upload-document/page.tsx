@@ -68,7 +68,7 @@ const UploadDocumentPage = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4 mt-10 mx-auto">
+        <div className="flex flex-col items-center min-h-screen p-4 mt-24 mx-auto">
             <div className="w-full max-w-md bg-muted rounded-lg shadow-md p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <UploadComponent onFileSelect={handleFileSelect} />
