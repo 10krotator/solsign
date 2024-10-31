@@ -1,14 +1,6 @@
 import Notification from "@/components/common/Notification";
 import Popup from "@/components/common/Popup";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
 import { storeSIWSMessage } from "@/lib/auth";
