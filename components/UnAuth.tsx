@@ -1,5 +1,6 @@
 import { Hero } from "./Hero";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { SignInButton } from "@/components/common/SignInButton";
 
 export const UnAuth = () => {
   const { connected } = useWallet();
@@ -8,7 +9,7 @@ export const UnAuth = () => {
       <Hero />
       {connected ?
       <span className="mb-8 leading-tight tracking-tighter">
-        sign in to get started
+        <SignInButton />
       </span>
       :
       <span className="mb-8 leading-tight tracking-tighter">
