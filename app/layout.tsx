@@ -3,8 +3,6 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-// import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-// import { AppSidebar } from "@/components/app-sidebar";
 
 import ClientLayout from "@/components/ClientLayout";
 import { DeviceProvider } from "./context/device";
