@@ -10,7 +10,6 @@ import ClientLayout from "@/components/ClientLayout";
 import { DeviceProvider } from "./context/device";
 
 import { cn } from "@/lib/utils";
-import { GridPattern } from "@/components/ui/grid-pattern";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
@@ -36,18 +35,9 @@ export default function RootLayout({
             <Toaster />
             {/* Your existing layout content */}
             <ClientLayout>
-              <GridPattern
-                width={10}
-                height={10}
-                x={-1}
-                y={-1}
-                className={cn(
-                "[mask-image:linear-gradient(to_bottom,#09090b,#09090b)] z-[-1]",
-                )}
-              />
               {children}
             </ClientLayout>
-            </DeviceProvider>
+          </DeviceProvider>
         </ThemeProvider>
       </body>
     </html>
