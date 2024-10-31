@@ -10,7 +10,6 @@ import ClientLayout from "@/components/ClientLayout";
 import { DeviceProvider } from "./context/device";
 
 import { cn } from "@/lib/utils";
-import { SolanaWalletProvider } from "@/components/providers/SolanaWalletProvider";
 import { GridPattern } from "@/components/ui/grid-pattern";
 import { Toaster } from "sonner";
 
@@ -33,22 +32,22 @@ export default function RootLayout({
       <body className={cn("min-h-screen antialiased")}>
         {/* TODO: make this default to system ... dark mode is throwing color errors */}
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <SolanaWalletProvider>
-            <DeviceProvider>
+          <DeviceProvider>
+            <Toaster />
+            {/* Your existing layout content */}
+            <ClientLayout>
               <GridPattern
                 width={10}
                 height={10}
                 x={-1}
                 y={-1}
                 className={cn(
-                  "[mask-image:linear-gradient(to_bottom,white,transparent,transparent)] z-[-1]",
+                "[mask-image:linear-gradient(to_bottom,#09090b,#09090b)] z-[-1]",
                 )}
               />
-              <Toaster />
-              {/* Your existing layout content */}
-              <ClientLayout>{children}</ClientLayout>
+              {children}
+            </ClientLayout>
             </DeviceProvider>
-          </SolanaWalletProvider>
         </ThemeProvider>
       </body>
     </html>

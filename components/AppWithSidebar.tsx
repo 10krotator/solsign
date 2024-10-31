@@ -1,5 +1,6 @@
 "use client";
 
+import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { WalletMultiButton } from "@/components/wallet_connect_button/WalletMultiButton";
 import { AuthProvider } from "@/app/context/auth";
 import { useDevice } from '@/app/context/device';
@@ -10,7 +11,6 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 import { TipLinkWalletAdapter } from '@tiplink/wallet-adapter';
 import { DefaultTipLinkWalletModalProvider } from '@tiplink/wallet-adapter-react-ui';
 import Logo from "./common/Logo";
-
 import {
   AlignJustify,
   Github,
@@ -263,18 +263,22 @@ export default function AppWithSidebarAndWallet({ children }: { children: React.
     []
   );
   return (
-    <ConnectionProvider endpoint={process.env.NEXT_PUBLIC_RPC_URL as string}>
-      <WalletProvider wallets={[tipLinkWalletAdapter]} autoConnect>
+    <ConvexClientProvider>
+      <ConnectionProvider endpoint={process.env.NEXT_PUBLIC_RPC_URL as string}>
+        <WalletProvider wallets={[tipLinkWalletAdapter]} autoConnect>
         <DefaultTipLinkWalletModalProvider>
           <AuthProvider>
             <NotificationProvider>
               {/* <WebIrysProvider> */}
-                <AppWithSidebar>{children}</AppWithSidebar>
+                <AppWithSidebar>
+                  {children}
+                </AppWithSidebar>
               {/* </WebIrysProvider> */}
             </NotificationProvider>
           </AuthProvider>
         </DefaultTipLinkWalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+        </WalletProvider>
+      </ConnectionProvider>
+    </ConvexClientProvider>
   );
 }
