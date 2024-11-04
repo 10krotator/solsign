@@ -9,7 +9,7 @@ import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 
 import { UnAuth } from "@/components/UnAuth";
-
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { UploadComponent } from "./_components/UploadComponent";
 import { WalletAddressInputs } from "./_components/WalletAddressInputs";
 import { Button } from "@/components/ui/button";
@@ -69,13 +69,26 @@ const UploadDocumentPage = () => {
 
     return (
         <div className="flex flex-col items-center min-h-screen p-4 mt-24 mx-auto">
-            <div className="w-full max-w-md bg-muted rounded-lg shadow-md p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <UploadComponent onFileSelect={handleFileSelect} />
-                    <WalletAddressInputs walletAddresses={walletAddresses} setWalletAddresses={setWalletAddresses} />
-                    <Button type="submit">Submit</Button>
-                </form>
-            </div>
+            <Card className="w-full max-w-md">
+                <CardHeader>
+                    <CardTitle>Upload Document</CardTitle>
+                    <CardDescription>
+                        Upload a document and add wallet addresses for signing
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <UploadComponent onFileSelect={handleFileSelect} />
+                        <WalletAddressInputs
+                            walletAddresses={walletAddresses}
+                            setWalletAddresses={setWalletAddresses}
+                        />
+                        <Button type="submit" className="w-full">
+                            Upload Document
+                        </Button>
+                    </form>
+                </CardContent>
+            </Card>
         </div>
     );
 };
