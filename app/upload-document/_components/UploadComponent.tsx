@@ -39,26 +39,26 @@ export const UploadComponent = ({ onFileSelect }: UploadComponentProps) => {
     }, 500);
   };
 
-  return (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="file-upload">Upload Document</Label>
-        <Input
-          id="file-upload"
-          type="file"
-          onChange={handleFileChange}
-          className="w-full cursor-pointer"
-        />
-      </div>
-      {selectedFile && (
-        <div className="space-y-2">
-          <div className="text-sm text-muted-foreground">
-            Selected file: {selectedFile.name}
-          </div>
-          <div className="text-sm text-muted-foreground">
-            Upload progress: {uploadProgress}%
-          </div>
-          <Progress value={uploadProgress} className="h-2" />
+    return (
+        <div className="space-y-4">
+            <div className="space-y-2">
+                <Label htmlFor="file-upload" className="text-sm font-semibold">upload document</Label>
+                <Input
+                    id="file-upload"
+                    type="file"
+                    onChange={handleFileChange}
+                    className="w-full cursor-pointer"
+                />
+            </div>
+            {selectedFile && (
+                <div className="space-y-2">
+                    <div className="text-sm text-muted-foreground">
+                    selected file: {selectedFile.name}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                    upload progress: {uploadProgress}%
+                </div>
+                <Progress value={uploadProgress} className="h-2" />
         </div>
       )}
     </div>

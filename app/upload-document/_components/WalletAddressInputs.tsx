@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
+import { Label } from '@radix-ui/react-label';
 
 interface WalletAddressInputsProps {
   walletAddresses: string[];
@@ -25,7 +26,7 @@ export const WalletAddressInputs = ({ walletAddresses, setWalletAddresses }: Wal
 
   return (
     <div className="space-y-2">
-      <span className="text-lg font-semibold leading-tight tracking-tight">add wallets to sign the document</span>
+      <Label className="text-sm font-semibold">add wallets to sign the document</Label>
       {walletAddresses.map((address, index) => (
         <div key={index} className="flex gap-2">
           <Input

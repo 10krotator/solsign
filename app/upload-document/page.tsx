@@ -71,9 +71,9 @@ const UploadDocumentPage = () => {
         <div className="flex flex-col items-center min-h-screen p-4 mt-24 mx-auto">
             <Card className="w-full max-w-md">
                 <CardHeader>
-                    <CardTitle>Upload Document</CardTitle>
+                    <CardTitle className="text-3xl font-bold leading-tight tracking-tighter">upload document</CardTitle>
                     <CardDescription>
-                        Upload a document and add wallet addresses for signing
+                        upload a document and add wallet addresses for signing
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -84,7 +84,7 @@ const UploadDocumentPage = () => {
                             setWalletAddresses={setWalletAddresses}
                         />
                         <Button type="submit" className="w-full">
-                            Upload Document
+                            upload document
                         </Button>
                     </form>
                 </CardContent>
