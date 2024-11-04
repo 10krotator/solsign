@@ -28,7 +28,7 @@ export default function RootLayout({
     >
       <body className={cn("min-h-screen antialiased")}>
         {/* TODO: make this default to system ... dark mode is throwing color errors */}
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <DeviceProvider>
             <Toaster />
             {/* Your existing layout content */}

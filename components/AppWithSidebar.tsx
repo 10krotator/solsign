@@ -3,13 +3,13 @@
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { WalletMultiButton } from "@/components/wallet_connect_button/WalletMultiButton";
 import { AuthProvider } from "@/app/context/auth";
-import { useDevice } from '@/app/context/device';
-import { NotificationProvider } from '@/app/context/notification';
+import { useDevice } from "@/app/context/device";
+import { NotificationProvider } from "@/app/context/notification";
 // import { WebIrysProvider } from '@/app/context/webIrys';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import '@solana/wallet-adapter-react-ui/styles.css';
-import { TipLinkWalletAdapter } from '@tiplink/wallet-adapter';
-import { DefaultTipLinkWalletModalProvider } from '@tiplink/wallet-adapter-react-ui';
+import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
+import "@solana/wallet-adapter-react-ui/styles.css";
+import { TipLinkWalletAdapter } from "@tiplink/wallet-adapter";
+import { DefaultTipLinkWalletModalProvider } from "@tiplink/wallet-adapter-react-ui";
 import Logo from "./common/Logo";
 import {
   AlignJustify,
@@ -21,11 +21,12 @@ import {
   Map as Roadmap,
   Twitter,
   X,
-} from 'lucide-react';
-// import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+} from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import GridPattern from "./ui/grid-pattern";
+import { ModeToggle } from "./ThemeSwitcher";
 
 interface SidebarItem {
   label: string;
@@ -83,18 +84,21 @@ function SidebarLabel({
 
 const SocialLinks = () => {
   return (
-    <div className="mt-auto mb-4 flex justify-start space-x-4 px-4">
-      <Link href="https://twitter.com/_solanasign" target="_blank" rel="noopener noreferrer" passHref>
-        <Twitter className="h-5 w-5 text-gray-500 hover:text-gray-900 cursor-pointer" />
-      </Link>
-      <Link
-        href="https://github.com/10krotator/solsign"
-        target="_blank"
-        rel="noopener noreferrer"
-        passHref
-      >
-        <Github className="h-5 w-5 text-gray-500 hover:text-gray-900 cursor-pointer" />
-      </Link>
+    <div className="mt-auto mb-4 flex items-center justify-between px-4">
+      <div className="flex items-center gap-4">
+        <Link href="https://twitter.com/_solanasign" target="_blank" rel="noopener noreferrer" passHref>
+          <Twitter className="h-5 w-5 text-primary hover:text-primary/80 cursor-pointer" />
+        </Link>
+        <Link
+          href="https://github.com/10krotator/solsign"
+          target="_blank"
+          rel="noopener noreferrer"
+          passHref
+        >
+          <Github className="h-5 w-5 text-primary hover:text-primary/80 cursor-pointer" />
+        </Link>
+      </div>
+      <ModeToggle />
     </div>
   );
 };
@@ -172,7 +176,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-screen h-full w-full overflow-x-scroll relative">
         {!sidebarOpen && (
           <AlignJustify
-            className="absolute top-4 left-1 m-2 text-black"
+            className="absolute top-4 left-1 m-2 text-primary"
             width={28}
             height={28}
             onClick={() => setSidebarOpen(true)}
@@ -188,7 +192,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
           >
             <div className="flex justify-between items-center w-full px-4 py-2">
               <X
-                className="text-black cursor-pointer"
+                className="text-primary cursor-pointer"
                 width={28}
                 height={28}
                 onClick={() => setSidebarOpen(false)}
@@ -212,7 +216,12 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
             <SocialLinks />
           </div>
         </div>
-        <div className="flex flex-col p-4 w-full bg-white">
+        <div className="flex flex-col p-4 w-full bg-background">
+          <GridPattern
+            className="fixed inset-0 z-[1] opacity-80"
+            width={5}
+            height={5}
+          />
           <Header title={sidebarItems[activeIndex].label} />
           {children}
         </div>
@@ -222,7 +231,12 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-screen w-full">
-      <div className="bg-white">
+      <GridPattern
+        className="fixed inset-0 z-[1] opacity-80"
+        width={5}
+        height={5}
+      />
+      <div className="relative z-[2]">
         <div className="flex flex-col w-[250px] h-full bg-muted px-4">
           <a
             className="flex items-center justify-center py-4 gap-4"
@@ -243,7 +257,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
           <SocialLinks /> 
         </div>
       </div>
-      <div className="p-4 w-full bg-white h-[100vh] overflow-y-clip">
+      <div className="p-4 w-full bg-background/50 h-[100vh] overflow-y-clip relative z-[2]">
         <Header title={sidebarItems[activeIndex].label} />
         {children}
       </div>

@@ -176,7 +176,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       {children}
       {((status === 'unauthenticated' || loading) && (
         <Popup zIndex={50} alignItems="center" onClose={() => null}>
-          <div className="flex flex-col items-center gap-4 p-8 bg-white rounded-lg">
+          <div className="flex flex-col items-center gap-4 p-8 bg-white dark:bg-zinc-900 rounded-lg">
             {loading ? (
               <div className="flex items-center gap-2">
                 <Loader2 className="h-4 w-4 animate-spin" />
