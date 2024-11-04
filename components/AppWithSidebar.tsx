@@ -174,9 +174,14 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
   if (isMobile) {
     return (
       <div className="flex min-h-screen h-full w-full overflow-x-scroll relative">
+        <GridPattern
+          className="fixed inset-0 z-[1] opacity-60"
+          width={5}
+          height={5}
+        />
         {!sidebarOpen && (
           <AlignJustify
-            className="absolute top-4 left-1 m-2 text-primary"
+            className="absolute top-4 left-1 m-2 text-primary z-[3]"
             width={28}
             height={28}
             onClick={() => setSidebarOpen(true)}
@@ -216,14 +221,13 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
             <SocialLinks />
           </div>
         </div>
-        <div className="flex flex-col p-4 w-full bg-background">
-          <GridPattern
-            className="fixed inset-0 z-[1] opacity-80"
-            width={5}
-            height={5}
-          />
-          <Header title={sidebarItems[activeIndex].label} />
-          {children}
+        <div className="flex flex-col p-4 w-full">
+          <div className="relative z-[2] flex flex-col h-full">
+            <Header title={sidebarItems[activeIndex].label} />
+            <div className="flex-1">
+              {children}
+            </div>
+          </div>
         </div>
       </div>
     );    
@@ -232,7 +236,7 @@ function AppWithSidebar({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen w-full">
       <GridPattern
-        className="fixed inset-0 z-[1] opacity-80"
+        className="fixed inset-0 z-[1] opacity-60"
         width={5}
         height={5}
       />
