@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@irys/sdk": "latest",
+    "@irys/sdk": "^0.2.11",
     "@irys/upload-core": "^0.0.9",
     "@irys/web-upload": "^0.0.14",
     "@irys/web-upload-solana": "^0.1.7",
