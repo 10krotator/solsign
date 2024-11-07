@@ -1,22 +1,7 @@
-import { UploadResponse } from '@irys/sdk/common/types';
-import { WebUSDCSolana } from '@irys/web-upload-solana';
+import { WebIrys } from "@irys/sdk";
 import { WalletContextState } from '@solana/wallet-adapter-react';
-import BigNumber from 'bignumber.js';
-import { WebUploader } from '@irys/web-upload';
-import { Irys } from '@irys/upload-core';
-import { BaseWebIrys } from '@irys/sdk/web/base';
 
-class CustomUSDCSolana extends WebUSDCSolana {
-  // eslint-disable-next-line class-methods-use-this
-  getFee = async () => {
-    return {
-      computeBudget: new BigNumber(5000),
-      computeUnitPrice: new BigNumber(1000),
-    };
-  };
-}
-
-export type WebIrysUploader = Irys & Pick<BaseWebIrys, "uploadFile">;
+export type WebIrysUploader = WebIrys;
 
 export async function getSignerWebIrys(
   wallet: WalletContextState
@@ -27,12 +12,28 @@ export async function getSignerWebIrys(
   }
 
   try {
-    const irysUploader = await WebUploader(CustomUSDCSolana)
-      .withProvider(wallet)
-      .withRpc(process.env.NEXT_PUBLIC_RPC_URL as string)
-      .build();
-    await irysUploader.ready();
-    return irysUploader;
+    // Initialize WebIrys
+    const webIrys = new WebIrys({
+      url: "https://devnet.irys.xyz",  // For devnet
+      token: "solana",
+      wallet: {
+        rpcUrl: process.env.NEXT_PUBLIC_RPC_URL_DEVNET as string,
+        name: "solana",
+        provider: wallet,
+      },
+      // config: {
+      //   // Optional priority fee for Solana transactions
+      //   priorityFee: {
+      //     computeUnitPrice: 1000,
+      //     computeUnitLimit: 5000
+      //   }
+      // }
+    });
+
+    // Connect to the node
+    await webIrys.ready();
+
+    return webIrys;
   } catch (error: unknown) {
     console.error('Error connecting to Irys:', error);
     return null;
@@ -43,21 +44,28 @@ export async function webIrysUploadData(
   wallet: WalletContextState,
   data: Uint8Array,
   tags: { name: string; value: string }[]
-): Promise<UploadResponse | null> {
-  const irys = await getSignerWebIrys(wallet);
-  if (!irys) {
+): Promise<{ id: string } | null> {
+  const webIrys = await getSignerWebIrys(wallet);
+  if (!webIrys) {
     console.error('Failed to initialize WebIrys');
     return null;
   }
-  return irys.upload(Buffer.from(data), {
-    tags: [
-      ...tags,
-      {
-        name: 'application-name',
-        value: 'solana-sign',
-      },
-    ],
-  });
+
+  try {
+    const receipt = await webIrys.upload(Buffer.from(data), {
+      tags: [
+        ...tags,
+        {
+          name: 'application-name',
+          value: 'solana-sign',
+        },
+      ],
+    });
+    return receipt;
+  } catch (error) {
+    console.error('Error uploading to Irys:', error);
+    return null;
+  }
 }
 
 export function getIrysGatewayUrl(fileId: string): string {

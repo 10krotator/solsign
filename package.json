@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@irys/sdk": "^0.2.11",
+    "@irys/sdk": "latest",
     "@irys/upload-core": "^0.0.9",
     "@irys/web-upload": "^0.0.14",
     "@irys/web-upload-solana": "^0.1.7",
@@ -66,5 +66,8 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "overrides": {
+    "ws": "^8.13.0"
   }
 }
