@@ -15,7 +15,7 @@ export const TermsAndConditions = () => {
           Terms and Conditions
         </span>
       </DialogTrigger>
-      <DialogContent className="flex flex-col p-0 text-black">
+      <DialogContent className="flex flex-col p-0 text-primary">
         <DialogHeader className="p-4 pb-2">
           <DialogTitle className="text-lg font-semibold">Terms and Conditions</DialogTitle>
           <p className="text-xs text-gray-500">

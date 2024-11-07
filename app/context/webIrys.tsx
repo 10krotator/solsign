@@ -1,6 +1,6 @@
-import { getSignerWebIrys, WebIrysUploader } from '@/lib/web_irys';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import { getSignerWebIrys, WebIrysUploader } from "@/lib/web_irys";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 
 export type WebIrysContextType = {
   webIrys: WebIrysUploader | null;

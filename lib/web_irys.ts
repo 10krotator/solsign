@@ -16,7 +16,7 @@ class CustomUSDCSolana extends WebUSDCSolana {
   };
 }
 
-export type WebIrysUploader = Irys & Pick<BaseWebIrys, 'uploadFile'>;
+export type WebIrysUploader = Irys & Pick<BaseWebIrys, "uploadFile">;
 
 export async function getSignerWebIrys(
   wallet: WalletContextState

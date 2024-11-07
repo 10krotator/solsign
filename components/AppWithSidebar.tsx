@@ -5,7 +5,7 @@ import { WalletMultiButton } from "@/components/wallet_connect_button/WalletMult
 import { AuthProvider } from "@/app/context/auth";
 import { useDevice } from "@/app/context/device";
 import { NotificationProvider } from "@/app/context/notification";
-// import { WebIrysProvider } from '@/app/context/webIrys';
+import { WebIrysProvider } from "@/app/context/webIrys";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { TipLinkWalletAdapter } from "@tiplink/wallet-adapter";
@@ -287,11 +287,11 @@ export default function AppWithSidebarAndWallet({ children }: { children: React.
         <DefaultTipLinkWalletModalProvider>
           <AuthProvider>
             <NotificationProvider>
-              {/* <WebIrysProvider> */}
+              <WebIrysProvider>
                 <AppWithSidebar>
                   {children}
                 </AppWithSidebar>
-              {/* </WebIrysProvider> */}
+              </WebIrysProvider>
             </NotificationProvider>
           </AuthProvider>
         </DefaultTipLinkWalletModalProvider>
