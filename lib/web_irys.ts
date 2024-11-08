@@ -6,7 +6,7 @@ import { WebUploader } from '@irys/web-upload';
 import { Irys } from '@irys/upload-core';
 import { BaseWebIrys } from '@irys/sdk/web/base';
 
-class CustomUSDCSolana extends WebSolana {
+class CustomSolana extends WebSolana {
   // eslint-disable-next-line class-methods-use-this
   getFee = async () => {
     return {
@@ -27,7 +27,7 @@ export async function getSignerWebIrys(
   }
 
   try {
-    const irysUploader = await WebUploader(CustomUSDCSolana)
+    const irysUploader = await WebUploader(CustomSolana)
       .withProvider(wallet)
       .withRpc(process.env.NEXT_PUBLIC_RPC_URL_DEVNET as string)
       .build();
