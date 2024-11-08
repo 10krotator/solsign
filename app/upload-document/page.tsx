@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import dynamic from 'next/dynamic';
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/auth";
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -8,20 +9,16 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft } from "lucide-react";
 import { UploadComponent } from "./_components/UploadComponent";
 import { Card, CardDescription, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 import { WalletAddressInputs } from "./_components/WalletAddressInputs";
 import { UnAuth } from "@/components/UnAuth";
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url,
-).toString();
+// Dynamically import react-pdf components
+const PDFViewer = dynamic(() => import('@/components/common/PDFViewer'), {
+    ssr: false
+});
 
 const UploadDocumentPage = () => {
     const { status } = useAuth();
@@ -29,8 +26,6 @@ const UploadDocumentPage = () => {
     const { publicKey } = useWallet();
     const [walletAddresses, setWalletAddresses] = useState<string[]>(['']);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [numPages, setNumPages] = useState<number>();
-    const [pageNumber, setPageNumber] = useState<number>(1);
     const createDocument = useMutation(api.documents.createDocument);
 
     const handleFileSelect = (file: File | null) => {
@@ -74,10 +69,6 @@ const UploadDocumentPage = () => {
         }
     };
 
-    function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
-        setNumPages(numPages);
-    }
-
     if (status !== "authenticated") {
         return <UnAuth />;
     }
@@ -85,31 +76,7 @@ const UploadDocumentPage = () => {
     return (
         <div className="flex flex-col items-center min-h-screen p-4 mt-24 mx-auto">
             {selectedFile && (
-                <div className="mt-8 max-h-[350px] overflow-y-auto border rounded-lg p-4">
-                    <Document
-                        file={selectedFile}
-                        onLoadSuccess={onDocumentLoadSuccess}
-                    >
-                        <Page pageNumber={pageNumber} />
-                    </Document>
-                    <div className="flex justify-center items-center gap-4 mt-2 sticky bottom-0 bg-background/50 backdrop-blur-sm p-2">
-                        <Button
-                            disabled={pageNumber <= 1}
-                            onClick={() => setPageNumber(pageNumber - 1)}
-                        >
-                            <ArrowLeft className="w-4 h-4" />
-                        </Button>
-                        <p>
-                            Page {pageNumber} of {numPages}
-                        </p>
-                        <Button
-                            disabled={pageNumber >= (numPages || 0)}
-                            onClick={() => setPageNumber(pageNumber + 1)}
-                        >
-                            <ArrowRight />
-                        </Button>
-                    </div>
-                </div>
+                <PDFViewer file={selectedFile} />
             )}
             <br />
             <Card className="w-full max-w-md">
