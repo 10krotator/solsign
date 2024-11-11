@@ -10,6 +10,7 @@ export default defineSchema({
     updatedAt: v.optional(v.number()),
     pubkeys: v.optional(v.array(v.string())),
     documentUrl: v.optional(v.string()),
+    irysFileId: v.optional(v.string()),
   }),
   signatures: defineTable({
     documentId: v.id("documents"),

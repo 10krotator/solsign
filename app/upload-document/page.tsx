@@ -8,6 +8,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import { getSignerWebIrys } from "@/lib/web_irys";
 
 import { Button } from "@/components/ui/button";
 import { UploadComponent } from "./_components/UploadComponent";
@@ -23,6 +24,7 @@ const PDFViewer = dynamic(() => import('@/components/common/PDFViewer'), {
 const UploadDocumentPage = () => {
     const { status } = useAuth();
     const router = useRouter();
+    const wallet = useWallet();
     const { publicKey } = useWallet();
     const [walletAddresses, setWalletAddresses] = useState<string[]>(['']);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -40,20 +42,41 @@ const UploadDocumentPage = () => {
         }
 
         try {
-            const fileBase64 = await new Promise<string>((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(selectedFile);
-                reader.onload = () => resolve(reader.result as string);
-                reader.onerror = error => reject(error);
-            });
+            const irys = await getSignerWebIrys(wallet);
+            if (!irys) {
+                toast.error('Failed to get signer web irys');
+                return;
+            }
 
-            const base64Content = fileBase64.split(',')[1];
-            console.log(base64Content);
+            // Upload file to Irys
+            const fileBuffer = await selectedFile.arrayBuffer();
+            const tags = [
+                { name: 'Content-Type', value: selectedFile.type },
+                { name: 'App-Name', value: 'SolSign' },
+                { name: 'Title', value: selectedFile.name }
+            ];
+
+            // Convert ArrayBuffer to File object
+            const file = new File([fileBuffer], selectedFile.name, { type: selectedFile.type });
+            const receipt = await irys.uploadFile(file, { tags });
+            const fileId = receipt.id;
+            console.log(fileId);
+
+            // const fileBase64 = await new Promise<string>((resolve, reject) => {
+            //     const reader = new FileReader();
+            //     reader.readAsDataURL(selectedFile);
+            //     reader.onload = () => resolve(reader.result as string);
+            //     reader.onerror = error => reject(error);
+            // });
+
+            // const base64Content = fileBase64.split(',')[1];
+            // console.log(base64Content)
 
             await createDocument({
                 title: selectedFile.name,
                 creator: publicKey?.toString() || '',
                 pubkeys: walletAddresses,
+                irysFileId: fileId,
                 // TODO: write file content to database
                 // fileContent: base64Content,
                 // fileName: selectedFile.name

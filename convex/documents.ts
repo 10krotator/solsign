@@ -6,12 +6,14 @@ export const createDocument = mutation({
         title: v.string(),
         creator: v.string(),
         pubkeys: v.array(v.string()),
+        irysFileId: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
         const document = await ctx.db.insert("documents", {
             title: args.title,
             creator: args.creator,
             pubkeys: args.pubkeys,
+            irysFileId: args.irysFileId,
         });
 
         args.pubkeys.forEach(async (pubkey) => {
