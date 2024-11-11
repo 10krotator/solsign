@@ -74,7 +74,7 @@ const UploadDocumentPage = () => {
     }
 
     return (
-        <div className="flex flex-col items-center min-h-screen p-4 mt-24 mx-auto">
+        <div className="flex flex-col items-center min-h-screen p-4 mx-auto">
             {selectedFile && (
                 <PDFViewer file={selectedFile} />
             )}
