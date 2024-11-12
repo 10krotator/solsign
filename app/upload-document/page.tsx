@@ -15,7 +15,8 @@ import { UploadComponent } from "./_components/UploadComponent";
 import { Card, CardDescription, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 import { WalletAddressInputs } from "./_components/WalletAddressInputs";
 import { UnAuth } from "@/components/UnAuth";
-
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 // Dynamically import react-pdf components
 const PDFViewer = dynamic(() => import('@/components/common/PDFViewer'), {
     ssr: false
@@ -28,6 +29,7 @@ const UploadDocumentPage = () => {
     const { publicKey } = useWallet();
     const [walletAddresses, setWalletAddresses] = useState<string[]>(['']);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [useIrys, setUseIrys] = useState(false);
     const createDocument = useMutation(api.documents.createDocument);
 
     const handleFileSelect = (file: File | null) => {
@@ -48,35 +50,28 @@ const UploadDocumentPage = () => {
                 return;
             }
 
-            // Upload file to Irys
-            const fileBuffer = await selectedFile.arrayBuffer();
-            const tags = [
+            let fileId = '';
+            if (useIrys) {
+                // Upload file to Irys
+                const fileBuffer = await selectedFile.arrayBuffer();
+                const tags = [
                 { name: 'Content-Type', value: selectedFile.type },
                 { name: 'App-Name', value: 'SolSign' },
                 { name: 'Title', value: selectedFile.name }
             ];
 
-            // Convert ArrayBuffer to File object
-            const file = new File([fileBuffer], selectedFile.name, { type: selectedFile.type });
-            const receipt = await irys.uploadFile(file, { tags });
-            const fileId = receipt.id;
-            console.log(fileId);
-
-            // const fileBase64 = await new Promise<string>((resolve, reject) => {
-            //     const reader = new FileReader();
-            //     reader.readAsDataURL(selectedFile);
-            //     reader.onload = () => resolve(reader.result as string);
-            //     reader.onerror = error => reject(error);
-            // });
-
-            // const base64Content = fileBase64.split(',')[1];
-            // console.log(base64Content)
+                // Convert ArrayBuffer to File object
+                const file = new File([fileBuffer], selectedFile.name, { type: selectedFile.type });
+                const receipt = await irys.uploadFile(file, { tags });
+                fileId = receipt.id;
+                console.log(fileId);
+            }
 
             await createDocument({
                 title: selectedFile.name,
                 creator: publicKey?.toString() || '',
                 pubkeys: walletAddresses,
-                irysFileId: fileId,
+                irysFileId: fileId || '',
                 // TODO: write file content to database
                 // fileContent: base64Content,
                 // fileName: selectedFile.name
@@ -116,6 +111,16 @@ const UploadDocumentPage = () => {
                             walletAddresses={walletAddresses}
                             setWalletAddresses={setWalletAddresses}
                         />
+                        <div className="flex items-center space-x-2">
+                            <Label htmlFor="irys-upload" className="flex flex-1 font-semibold">
+                                upload to Irys (Permanent Storage)
+                            </Label>
+                            <Switch
+                                id="irys-upload"
+                                checked={useIrys}
+                                onCheckedChange={setUseIrys}
+                            />
+                        </div>
                         <Button type="submit" className="w-full">
                             upload document
                         </Button>
