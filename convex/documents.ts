@@ -1,19 +1,28 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
-
+import { ConvexError } from "convex/values";
 export const createDocument = mutation({
     args: {
         title: v.string(),
         creator: v.string(),
         pubkeys: v.array(v.string()),
         irysFileId: v.optional(v.string()),
+        storageId: v.optional(v.id("_storage")),
     },
     handler: async (ctx, args) => {
+        if(args.storageId) {
+            const exists = await ctx.storage.getUrl(args.storageId);
+            if(!exists) {
+                throw new ConvexError("File not found");
+            }
+        }
+
         const document = await ctx.db.insert("documents", {
             title: args.title,
             creator: args.creator,
             pubkeys: args.pubkeys,
             irysFileId: args.irysFileId,
+            storageId: args.storageId,
         });
 
         args.pubkeys.forEach(async (pubkey) => {
@@ -73,7 +82,7 @@ export const writeSignature = mutation({
                 signature: args.signature,
             });
         } else {
-            throw new Error("failed to write signature");
+            throw new ConvexError("failed to write signature");
         }
     },
 });
@@ -85,5 +94,20 @@ export const getSignatureByDocumentId = query({
     handler: async (ctx, args) => {
         const signature = await ctx.db.query("signatures").withIndex("by_documentId", (q) => q.eq("documentId", args.documentId)).collect();
         return signature;
+    },
+});
+
+export const generateUploadUrl = mutation({
+    args: {
+        contentType: v.string(),
+    },
+    handler: async (ctx, args) => {
+        if(args.contentType == "application/pdf" || args.contentType == "image/png" || args.contentType == "image/jpeg") {
+            const url = await ctx.storage.generateUploadUrl();
+            console.log(url);
+            return url;
+        } else {
+            throw new ConvexError("Invalid content type");
+        }
     },
 });

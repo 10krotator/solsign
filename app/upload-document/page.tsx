@@ -17,6 +17,7 @@ import { WalletAddressInputs } from "./_components/WalletAddressInputs";
 import { UnAuth } from "@/components/UnAuth";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+
 // Dynamically import react-pdf components
 const PDFViewer = dynamic(() => import('@/components/common/PDFViewer'), {
     ssr: false
@@ -31,6 +32,7 @@ const UploadDocumentPage = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [useIrys, setUseIrys] = useState(false);
     const createDocument = useMutation(api.documents.createDocument);
+    const generateUploadUrl = useMutation(api.documents.generateUploadUrl);
 
     const handleFileSelect = (file: File | null) => {
         setSelectedFile(file);
@@ -42,8 +44,27 @@ const UploadDocumentPage = () => {
             toast.error('Please select a file to upload');
             return;
         }
-
         try {
+            const uploadUrl = await generateUploadUrl({
+                contentType: selectedFile.type,
+            });
+            console.log("uploadUrl -->", uploadUrl);
+
+            const result = await fetch(uploadUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": selectedFile.type,
+                },
+                body: selectedFile,
+            });
+
+            if(!result.ok) {
+                toast.error("Failed to upload file");
+                return;
+            }
+
+            const storageId = await result.json();
+
             const irys = await getSignerWebIrys(wallet);
             if (!irys) {
                 toast.error('Failed to get signer web irys');
@@ -72,6 +93,7 @@ const UploadDocumentPage = () => {
                 creator: publicKey?.toString() || '',
                 pubkeys: walletAddresses,
                 irysFileId: fileId || '',
+                storageId: storageId.storageId,
                 // TODO: write file content to database
                 // fileContent: base64Content,
                 // fileName: selectedFile.name

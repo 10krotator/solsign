@@ -9,7 +9,7 @@ export default defineSchema({
     createdAt: v.optional(v.number()),
     updatedAt: v.optional(v.number()),
     pubkeys: v.optional(v.array(v.string())),
-    documentUrl: v.optional(v.string()),
+    storageId: v.optional(v.id("_storage")),
     irysFileId: v.optional(v.string()),
   }),
   signatures: defineTable({
