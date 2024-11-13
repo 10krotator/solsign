@@ -97,6 +97,8 @@ export const getSignatureByDocumentId = query({
     },
 });
 
+// convex storage generate and retrieve url
+
 export const generateUploadUrl = mutation({
     args: {
         contentType: v.string(),
@@ -109,5 +111,18 @@ export const generateUploadUrl = mutation({
         } else {
             throw new ConvexError("Invalid content type");
         }
+    },
+});
+
+export const getFileUrl = query({
+    args: {
+        storageId: v.id("_storage")
+    },
+    handler: async (ctx, args) => {
+        const url = await ctx.storage.getUrl(args.storageId);
+        if (!url) {
+            throw new ConvexError("File not found");
+        }
+        return url;
     },
 });

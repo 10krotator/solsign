@@ -48,7 +48,6 @@ const UploadDocumentPage = () => {
             const uploadUrl = await generateUploadUrl({
                 contentType: selectedFile.type,
             });
-            console.log("uploadUrl -->", uploadUrl);
 
             const result = await fetch(uploadUrl, {
                 method: "POST",
