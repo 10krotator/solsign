@@ -16,6 +16,7 @@ export default defineSchema({
     documentId: v.id("documents"),
     pubkey: v.optional(v.string()),
     signature: v.optional(v.string()),
+    signedStorageId: v.optional(v.id("_storage")),
   })
   .index("by_pubkey", ["pubkey"])
   .index("by_documentId", ["documentId"]),

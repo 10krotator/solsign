@@ -114,7 +114,3 @@ export function publicKeyToEmoji(publicKey: string | PublicKey): string {
 
   return emojiList[emojiIndex];
 }
-
-
-const pubKey2 = 'EGNPfLtNe4WAcAQpnNwmehmEANCgj7FnqLUHfT54eVgV';
-console.log(publicKeyToEmoji(pubKey2)); // Output will be the same emoji as above

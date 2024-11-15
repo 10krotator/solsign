@@ -69,6 +69,7 @@ export const writeSignature = mutation({
         documentId: v.id("documents"),
         signature: v.string(),
         pubkey: v.string(),
+        signedStorageId: v.optional(v.id("_storage")),
     },
     handler: async (ctx, args) => {
         const signature = await ctx.db
@@ -80,6 +81,7 @@ export const writeSignature = mutation({
         if (signature) {
             await ctx.db.patch(signature._id, {
                 signature: args.signature,
+                signedStorageId: args.signedStorageId,
             });
         } else {
             throw new ConvexError("failed to write signature");
