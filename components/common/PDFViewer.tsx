@@ -25,14 +25,21 @@ const PDFViewer = ({ file }: PDFViewerProps) => {
     }
 
     return (
-        <div className="mt-8 max-h-[350px] overflow-y-auto border rounded-lg p-4">
-            <Document
-                file={file}
-                onLoadSuccess={onDocumentLoadSuccess}
-            >
-                <Page pageNumber={pageNumber} />
-            </Document>
-            <div className="flex justify-center items-center gap-4 mt-2 sticky bottom-0 bg-background/50 backdrop-blur-sm p-2">
+        <div className="flex flex-col items-center">
+            <div className="border rounded-lg p-4 w-full h-[350px] overflow-y-auto">
+                <Document
+                    file={file}
+                    onLoadSuccess={onDocumentLoadSuccess}
+                >
+                    <Page
+                        pageNumber={pageNumber}
+                        renderTextLayer={false}
+                        renderAnnotationLayer={false}
+                    />
+                </Document>
+            </div>
+
+            <div className="flex justify-center items-center gap-4 mt-4">
                 <Button
                     disabled={pageNumber <= 1}
                     onClick={() => setPageNumber(pageNumber - 1)}
