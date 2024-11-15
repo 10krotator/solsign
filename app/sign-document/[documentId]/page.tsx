@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useCallback } from "react"
 import { useWallet } from '@solana/wallet-adapter-react';
-import { useRouter } from "next/navigation";
 
 import { ButtonGradient } from "@/components/ui/button-gradient";
 import { UnAuth } from "@/components/UnAuth";
@@ -36,7 +35,6 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
   const writeSign = useMutation(api.documents.writeSignature);
   const signatures = useQuery(api.documents.getSignatureByDocumentId, { documentId: documentId as Id<"documents"> });
   const generateUploadUrl = useMutation(api.documents.generateUploadUrl);
-  const router = useRouter();
 
   const fileUrl = useQuery(
     api.documents.getFileUrl,
@@ -107,7 +105,6 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
           signedStorageId: signedStorageId.storageId
         });
         alert('Document signed successfully!');
-        router.push("/sign-document");
     } catch (error) {
         console.error('Error signing document:', error);
         alert('Failed to sign document.');
