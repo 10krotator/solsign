@@ -44,7 +44,7 @@ export const WalletAddressInputs = ({ walletAddresses, setWalletAddresses }: Wal
           )}
         </div>
       ))}
-      <Button type="button" onClick={addWalletInput} className="w-full">Add Another Wallet</Button>
+      <Button type="button" size="sm" onClick={addWalletInput} className="w-fit">Add Another Wallet</Button>
     </div>
   );
 };
