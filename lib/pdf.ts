@@ -1,4 +1,4 @@
-import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { PDFDocument, rgb, StandardFonts, degrees } from 'pdf-lib';
 
 export async function addSignatureToPdf(
   pdfFile: File,
@@ -11,21 +11,35 @@ export async function addSignatureToPdf(
   // Load the PDF document
   const pdfDoc = await PDFDocument.load(pdfBytes);
   
-  // Get the last page
+  // Get all pages
   const pages = pdfDoc.getPages();
+  
+  // Embed the font
+  const font = await pdfDoc.embedFont(StandardFonts.HelveticaOblique);
+  const fontSize = 8;
+  const watermarkText = `Signed by: ${signerPubkey}`;
+  
+  // Add watermark to each page
+  pages.forEach(page => {
+    const { width, height } = page.getSize();
+
+    // Add rotated text in right margin
+    page.drawText(watermarkText, {
+      x: width - 20, // Position from right edge
+      y: height / 2, // Middle of page
+      size: fontSize,
+      font,
+      color: rgb(0.6, 0.6, 0.6), // Light gray color
+      rotate: degrees(90), // Rotate 90 degrees
+      opacity: 0.5, // Make it semi-transparent
+    });
+  });
+  
+  // Add signature box at the bottom of last page
   const lastPage = pages[pages.length - 1];
-  
-  // Get page dimensions
   const { width } = lastPage.getSize();
-  
-  // Embed signature text
-  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-  const fontSize = 10;
-  const text = `Signed by: ${signerPubkey.slice(0, 8)}...${signerPubkey.slice(-8)}`;
-  const signatureText = `Signature: ${signature.slice(0, 16)}...${signature.slice(-16)}`;
-  const timestamp = `Date: ${new Date().toLocaleString()}`;
-  
-  // Add signature box at the bottom
+
+  // Add signature box
   lastPage.drawRectangle({
     x: 50,
     y: 50,
@@ -35,28 +49,34 @@ export async function addSignatureToPdf(
     borderWidth: 1,
   });
   
-  // Add text
+  // Add signature details
+  const signatureFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const signatureFontSize = 10;
+  const text = `Signed by: ${signerPubkey}`;
+  const signatureText = `Signature: ${signature.slice(0, 16)}...${signature.slice(-16)}`;
+  const timestamp = `Date: ${new Date().toLocaleString()}`;
+
   lastPage.drawText(text, {
     x: 60,
     y: 90,
-    size: fontSize,
-    font,
+    size: signatureFontSize,
+    font: signatureFont,
     color: rgb(0, 0, 0),
   });
   
   lastPage.drawText(signatureText, {
     x: 60,
     y: 75,
-    size: fontSize,
-    font,
+    size: signatureFontSize,
+    font: signatureFont,
     color: rgb(0, 0, 0),
   });
   
   lastPage.drawText(timestamp, {
     x: 60,
     y: 60,
-    size: fontSize,
-    font,
+    size: signatureFontSize,
+    font: signatureFont,
     color: rgb(0, 0, 0),
   });
   

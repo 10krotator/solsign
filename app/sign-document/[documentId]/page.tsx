@@ -5,7 +5,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 
 import { ButtonGradient } from "@/components/ui/button-gradient";
 import { UnAuth } from "@/components/UnAuth";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Loader2, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import PDFViewer from "@/components/common/PDFViewer";
 
@@ -90,7 +90,6 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
         },
         body: signedPdf,
       });
-      console.log("result -->", result);
 
       if(!result.ok) {
           toast.error("Failed to store signed file");
@@ -145,7 +144,9 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
           </div>
         ))}
       </div>
-      <ButtonGradient onClick={handleSign} className="mt-4">Sign Document as {pubkeyShort}</ButtonGradient>
+      {signedFileUrl ?
+        <ButtonGradient onClick={() => window.open(signedFileUrl, '_blank')} className="mt-4"><Download className="w-4 h-4 mr-2" /> Download Signed Document</ButtonGradient> :
+        <ButtonGradient onClick={handleSign} className="mt-4">Sign Document as {pubkeyShort}</ButtonGradient>}
     </div>
   )
 }
