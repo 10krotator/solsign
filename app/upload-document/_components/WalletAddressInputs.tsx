@@ -45,7 +45,7 @@ export const WalletAddressInputs = ({ walletAddresses, setWalletAddresses }: Wal
         </div>
       ))}
       <div className="flex justify-end">
-        <Button type="button" size="sm" onClick={addWalletInput} className="w-fit">
+        <Button type="button" onClick={addWalletInput} className="w-fit">
           Add Another Wallet
         </Button>
       </div>
