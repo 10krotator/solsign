@@ -175,7 +175,6 @@ body {
   --dt-text-secondary: hsl(240 5.9% 10%); /* Using your primary */
   --dt-text-tertiary: hsl(240 3.8% 46.1%); /* Using your muted-foreground */
   --dt-border-radius-l: 0.5rem;
-  /* font-family: var(--font-geist-mono); */
 }
 
 /* Dialect Theme - Dark Mode */
