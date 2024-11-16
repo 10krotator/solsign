@@ -27,6 +27,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import GridPattern from "./ui/grid-pattern";
 import { ModeToggle } from "./ThemeSwitcher";
+import { DialectNotificationComponent } from "./DialectNotifications";
 
 interface SidebarItem {
   label: string;
@@ -51,6 +52,7 @@ function Header({ title }: { title: string }) {
           marginLeft: isMobile ? '30px' : '0px',
         }}
       >
+        <DialectNotificationComponent />
         {!isMobile && <WalletMultiButton className="flex-shrink-0" />}
         {isMobile && (
           <Logo />

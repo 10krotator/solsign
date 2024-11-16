@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dialectlabs/react-sdk-blockchain-solana": "^2.1.1",
+    "@dialectlabs/react-ui": "^2.2.0",
     "@irys/sdk": "^0.2.11",
     "@irys/upload-core": "^0.0.9",
     "@irys/web-upload": "^0.0.14",
