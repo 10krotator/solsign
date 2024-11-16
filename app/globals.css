@@ -147,69 +147,68 @@ body {
 
 /* Dialect Theme - Light Mode */
 .dialect {
-  --dt-accent-brand: hsl(217.2 91.2% 59.8%); /* Using your sidebar-ring */
-  --dt-accent-error: hsl(0 84.2% 60.2%); /* Using your destructive */
-  --dt-bg-brand: hsl(240 4.8% 95.9%); /* Using your secondary */
-  --dt-bg-primary: hsl(0 0% 100%); /* Using your background */
-  --dt-bg-secondary: hsl(240 4.8% 95.9%); /* Using your secondary */
-  --dt-bg-tertiary: hsl(240 4.8% 95.9%); /* Using your accent */
-  --dt-brand-transparent: hsl(240 5.9% 10% / 0.1); /* Using your primary with transparency */
-  --dt-button-primary: hsl(240 5.9% 10%); /* Using your primary */
-  --dt-button-primary-disabled: hsl(240 3.8% 46.1%); /* Using your muted-foreground */
-  --dt-button-primary-hover: hsl(240 4.8% 95.9%); /* Using your secondary */
-  --dt-button-secondary: hsl(240 4.8% 95.9%); /* Using your secondary */
-  --dt-button-secondary-disabled: hsl(240 4.8% 95.9%); /* Using your accent */
-  --dt-button-secondary-hover: hsl(240 4.8% 95.9%); /* Using your accent */
-  --dt-icon-primary: hsl(240 10% 3.9%); /* Using your foreground */
-  --dt-icon-secondary: hsl(240 3.8% 46.1%); /* Using your muted-foreground */
-  --dt-icon-tertiary: hsl(240 5.9% 90%); /* Using your border */
-  --dt-input-checked: hsl(217.2 91.2% 59.8%); /* Using your sidebar-ring */
-  --dt-input-primary: hsl(240 5.9% 90%); /* Using your input */
-  --dt-input-secondary: hsl(0 0% 100%); /* Using your background */
-  --dt-input-unchecked: hsl(240 5.9% 90%); /* Using your border */
-  --dt-stroke-primary: hsl(240 5.9% 90%); /* Using your border */
-  --dt-text-accent: hsl(217.2 91.2% 59.8%); /* Using your sidebar-ring */
-  --dt-text-inverse: hsl(0 0% 100%); /* White */
-  --dt-text-primary: hsl(240 10% 3.9%); /* Using your foreground */
-  --dt-text-quaternary: hsl(240 3.8% 46.1%); /* Using your muted-foreground */
-  --dt-text-secondary: hsl(240 5.9% 10%); /* Using your primary */
-  --dt-text-tertiary: hsl(240 3.8% 46.1%); /* Using your muted-foreground */
+  --dt-accent-brand: hsl(217.2 91.2% 59.8%);
+  --dt-accent-error: hsl(0 84.2% 60.2%);
+  --dt-bg-brand: hsl(240 4.8% 95.9%);
+  --dt-bg-primary: hsl(0 0% 100%);
+  --dt-bg-secondary: hsl(240 4.8% 95.9%);
+  --dt-bg-tertiary: hsl(240 4.8% 95.9%);
+  --dt-brand-transparent: hsl(240 5.9% 10% / 0.1);
+  --dt-button-primary: hsl(240 5.9% 10%);
+  --dt-button-primary-disabled: hsl(240 3.8% 46.1%);
+  --dt-button-primary-hover: hsl(240 4.8% 95.9%);
+  --dt-button-secondary: hsl(240 4.8% 95.9%);
+  --dt-button-secondary-disabled: hsl(240 4.8% 95.9%);
+  --dt-button-secondary-hover: hsl(240 4.8% 95.9%);
+  --dt-icon-primary: hsl(240 10% 3.9%);
+  --dt-icon-secondary: hsl(240 3.8% 46.1%);
+  --dt-input-checked: hsl(217.2 91.2% 59.8%);
+  --dt-input-primary: hsl(240 5.9% 90%);
+  --dt-input-secondary: hsl(0 0% 100%);
+  --dt-input-unchecked: hsl(240 5.9% 90%);
+  --dt-stroke-primary: hsl(240 5.9% 90%);
+  --dt-text-accent: hsl(217.2 91.2% 59.8%);
+  --dt-text-inverse: hsl(0 0% 100%);
+  --dt-text-primary: hsl(240 10% 3.9%);
+  --dt-text-quaternary: hsl(240 3.8% 46.1%);
+  --dt-text-secondary: hsl(240 5.9% 10%);
+  --dt-text-tertiary: hsl(240 3.8% 46.1%);
   --dt-border-radius-l: 0.5rem;
 }
 
 /* Dialect Theme - Dark Mode */
 .dark .dialect {
-  --dt-accent-brand: hsl(217.2 91.2% 59.8%); /* Using your sidebar-ring */
-  --dt-accent-error: hsl(0 62.8% 30.6%); /* Using your destructive */
-  --dt-bg-brand: hsl(240 3.7% 15.9%); /* Using your secondary */
-  --dt-bg-primary: hsl(240 10% 3.9%); /* Using your background */
-  --dt-bg-secondary: hsl(240 3.7% 15.9%); /* Using your secondary */
-  --dt-bg-tertiary: hsl(240 3.7% 15.9%); /* Using your accent */
-  --dt-brand-transparent: hsl(0 0% 98% / 0.1); /* Using your primary with transparency */
-  --dt-button-primary: hsl(0 0% 98%); /* Using your primary */
-  --dt-button-primary-disabled: hsl(240 5% 64.9%); /* Using your muted-foreground */
-  --dt-button-primary-hover: hsl(240 3.7% 15.9%); /* Using your secondary */
-  --dt-button-secondary: hsl(240 3.7% 15.9%); /* Using your secondary */
-  --dt-button-secondary-disabled: hsl(240 3.7% 15.9%); /* Using your accent */
-  --dt-button-secondary-hover: hsl(240 3.7% 15.9%); /* Using your accent */
-  --dt-icon-primary: hsl(0 0% 98%); /* Using your foreground */
-  --dt-icon-secondary: hsl(240 5% 64.9%); /* Using your muted-foreground */
-  --dt-icon-tertiary: hsl(240 3.7% 15.9%); /* Using your border */
-  --dt-input-checked: hsl(217.2 91.2% 59.8%); /* Using your sidebar-ring */
-  --dt-input-primary: hsl(240 3.7% 15.9%); /* Using your input */
-  --dt-input-secondary: hsl(240 10% 3.9%); /* Using your background */
-  --dt-input-unchecked: hsl(240 3.7% 15.9%); /* Using your border */
-  --dt-stroke-primary: hsl(240 3.7% 15.9%); /* Using your border */
-  --dt-text-accent: hsl(217.2 91.2% 59.8%); /* Using your sidebar-ring */
-  --dt-text-inverse: hsl(240 10% 3.9%); /* Using your background */
-  --dt-text-primary: hsl(0 0% 98%); /* Using your foreground */
-  --dt-text-quaternary: hsl(240 5% 64.9%); /* Using your muted-foreground */
-  --dt-text-secondary: hsl(0 0% 98%); /* Using your primary */
-  --dt-text-tertiary: hsl(240 5% 64.9%); /* Using your muted-foreground */
+  --dt-accent-brand: hsl(217.2 91.2% 59.8%);
+  --dt-accent-error: hsl(0 62.8% 30.6%);
+  --dt-bg-brand: hsl(240 3.7% 15.9%);
+  --dt-bg-primary: hsl(240 10% 3.9%);
+  --dt-bg-secondary: hsl(240 3.7% 15.9%);
+  --dt-bg-tertiary: hsl(240 3.7% 15.9%);
+  --dt-brand-transparent: hsl(0 0% 98% / 0.1);
+  --dt-button-primary: hsl(0 0% 98%);
+  --dt-button-primary-disabled: hsl(240 5% 64.9%);
+  --dt-button-primary-hover: hsl(240 5% 64.9%);
+  --dt-button-secondary: hsl(240 3.7% 15.9%);
+  --dt-button-secondary-disabled: hsl(240 3.7% 15.9%);
+  --dt-button-secondary-hover: hsl(240 3.7% 15.9%);
+  --dt-icon-primary: hsl(0 0% 98%);
+  --dt-icon-secondary: hsl(240 5% 64.9%);
+  --dt-icon-tertiary: hsl(240 3.7% 15.9%);
+  --dt-input-checked: hsl(217.2 91.2% 59.8%);
+  --dt-input-primary: hsl(240 3.7% 15.9%);
+  --dt-input-secondary: hsl(240 10% 3.9%);
+  --dt-input-unchecked: hsl(240 3.7% 15.9%);
+  --dt-stroke-primary: hsl(240 3.7% 15.9%);
+  --dt-text-accent: hsl(217.2 91.2% 59.8%);
+  --dt-text-inverse: hsl(240 10% 3.9%);
+  --dt-text-primary: hsl(0 0% 98%);
+  --dt-text-quaternary: hsl(240 5% 64.9%);
+  --dt-text-secondary: hsl(0 0% 98%);
+  --dt-text-tertiary: hsl(240 5% 64.9%);
 }
 
 /* Make dt-text-primary uppercase */
-.dialect [style*="--dt-text-primary"],
+/* .dialect [style*="--dt-text-primary"], */
 .dialect button {
   text-transform: uppercase !important;
   font-family: var(--font-geist-mono) !important;
