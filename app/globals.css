@@ -211,8 +211,6 @@ body {
 
 /* Make dt-text-primary uppercase */
 .dialect [style*="--dt-text-primary"],
-.dialect .dialect-notifications-list-header-title,
-.dialect .dialect-notifications-empty-title,
 .dialect button {
   text-transform: uppercase !important;
   font-family: var(--font-geist-mono) !important;
