@@ -113,41 +113,42 @@ const UploadDocumentPage = () => {
     }
 
     return (
-        <div className="flex flex-col items-center min-h-screen p-4 mx-auto">
-            {selectedFile && (
-                <PDFViewer file={selectedFile} />
-            )}
-            <br />
-            <Card className="w-full max-w-md">
-                <CardHeader>
-                    <CardTitle className="text-3xl font-bold leading-tight tracking-tighter">upload document</CardTitle>
-                    <CardDescription>
-                        upload a document and add wallet addresses for signing
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <UploadComponent onFileSelect={handleFileSelect} />
-                        <WalletAddressInputs
-                            walletAddresses={walletAddresses}
-                            setWalletAddresses={setWalletAddresses}
-                        />
-                        <div className="flex items-center space-x-2">
-                            <Label htmlFor="irys-upload" className="flex flex-1 font-semibold">
-                                upload to Irys (Permanent Storage)
-                            </Label>
-                            <Switch
-                                id="irys-upload"
-                                checked={useIrys}
-                                onCheckedChange={setUseIrys}
+        <div className="flex-1 relative overflow-y-auto h-full w-full">
+            <div className="flex flex-col items-center p-4 gap-4 pb-20">
+                {selectedFile && (
+                    <PDFViewer file={selectedFile} />
+                )}
+                <Card className="w-full max-w-md">
+                    <CardHeader>
+                        <CardTitle className="text-3xl font-bold leading-tight tracking-tighter">upload document</CardTitle>
+                        <CardDescription>
+                            upload a document and add wallet addresses for signing
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <UploadComponent onFileSelect={handleFileSelect} />
+                            <WalletAddressInputs
+                                walletAddresses={walletAddresses}
+                                setWalletAddresses={setWalletAddresses}
                             />
-                        </div>
-                        <Button type="submit" className="w-full">
-                            upload document
-                        </Button>
-                    </form>
-                </CardContent>
-            </Card>
+                            <div className="flex items-center space-x-2">
+                                <Label htmlFor="irys-upload" className="flex flex-1 font-semibold">
+                                    upload to Irys (Permanent Storage)
+                                </Label>
+                                <Switch
+                                    id="irys-upload"
+                                    checked={useIrys}
+                                    onCheckedChange={setUseIrys}
+                                />
+                            </div>
+                            <Button type="submit" className="w-full">
+                                upload document
+                            </Button>
+                        </form>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 };
