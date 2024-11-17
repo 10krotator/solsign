@@ -124,29 +124,43 @@ const SignDocumentPage = ({ params }: SignDocumentPageProps) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center gap-2 mx-auto mt-24">
-      <span className="text-3xl font-bold leading-tight tracking-tighter mb-2">sign document <span className="text-primary italic text-purple-500">{document?.title}</span></span>
-      <div className="flex flex-col gap-2">
-      {signedFile ? (
-          <PDFViewer file={signedFile} />
-        ) : file ? (
-          <PDFViewer file={file} />
-        ) : (
-          fileNotFound()
-        )}
-      </div>
-      <p>signers:</p>
-      <div className="flex flex-col gap-2">
-      {signatures && signatures.map((signature) => (
-        <div key={signature._id} className="flex flex-row gap-2 font-semibold">
-          <p>{signature.pubkey}</p>
-          {signature.signature && <p className="flex flex-row items-center text-green-600 font-normal text-sm">signed <Check className="w-4 h-4" /></p>}
-          </div>
-        ))}
-      </div>
-      {signedFileUrl ?
-        <ButtonGradient onClick={() => window.open(signedFileUrl, '_blank')} className="mt-4"><Download className="w-4 h-4 mr-2" /> Download Signed Document</ButtonGradient> :
-        <ButtonGradient onClick={handleSign} className="mt-4">Sign Document as {pubkeyShort}</ButtonGradient>}
+    <div className="flex-1 relative overflow-y-auto h-full w-full">
+        <div className="flex flex-col items-center p-4 gap-4 pb-20">
+            <span className="text-3xl font-bold leading-tight tracking-tighter mb-2">
+                sign document <span className="text-primary italic text-purple-500">{document?.title}</span>
+            </span>
+            <div className="flex flex-col gap-2">
+                {signedFile ? (
+                    <PDFViewer file={signedFile} />
+                ) : file ? (
+                    <PDFViewer file={file} />
+                ) : (
+                    fileNotFound()
+                )}
+            </div>
+            <p>signers:</p>
+            <div className="flex flex-col gap-2">
+                {signatures && signatures.map((signature) => (
+                    <div key={signature._id} className="flex flex-row gap-2 font-semibold">
+                        <p>{signature.pubkey}</p>
+                        {signature.signature &&
+                            <p className="flex flex-row items-center text-green-600 font-normal text-sm">
+                                signed <Check className="w-4 h-4" />
+                            </p>
+                        }
+                    </div>
+                ))}
+            </div>
+            {signedFileUrl ? (
+                <ButtonGradient onClick={() => window.open(signedFileUrl, '_blank')} className="mt-4">
+                    <Download className="w-4 h-4 mr-2" /> Download Signed Document
+                </ButtonGradient>
+            ) : (
+                <ButtonGradient onClick={handleSign} className="mt-4">
+                    Sign Document as {pubkeyShort}
+                </ButtonGradient>
+            )}
+        </div>
     </div>
   )
 }
