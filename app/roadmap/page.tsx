@@ -13,14 +13,14 @@ interface RoadmapItem {
 
 const initialRoadmap: RoadmapItem[] = [
     {
-        title: 'consultant lawyer gpt',
-        description: 'consultant lawyer gpt for legal advice on uploaded contracts.',
-        status: 'in-progress',
+        title: 'dialect notifications',
+        description: 'create a dialect notifications for documents created and signed.',
+        status: 'completed',
     },
     {
         title: 'onchain settlement',
         description: 'write a multisigsettlement contract onchain.',
-        status: 'planned',
+        status: 'in-progress',
     },
     {
         title: 'arweave storage',
