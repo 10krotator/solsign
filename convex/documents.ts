@@ -1,6 +1,8 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { ConvexError } from "convex/values";
+import { sendDialectMessage } from "./dialect";
+
 export const createDocument = mutation({
     args: {
         title: v.string(),
@@ -30,6 +32,12 @@ export const createDocument = mutation({
                 documentId: document,
                 pubkey: pubkey,
             });
+            try {
+                await sendDialectMessage(pubkey, "New document created: " + args.title);
+                console.log("Dialect message sent to " + pubkey);
+            } catch (error) {
+                console.error("Failed to send dialect message: ", error);
+            }
         });
         return document;
     },

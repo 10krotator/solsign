@@ -18,6 +18,11 @@ const initialRoadmap: RoadmapItem[] = [
         status: 'completed',
     },
     {
+        title: 'tiplink auth',
+        description: 'add tiplink gmail auth.',
+        status: 'completed',
+    },
+    {
         title: 'onchain settlement',
         description: 'write a multisigsettlement contract onchain.',
         status: 'in-progress',
@@ -28,8 +33,8 @@ const initialRoadmap: RoadmapItem[] = [
         status: 'planned',
     },
     {
-        title: 'tiplink authentication + sphere for payments',
-        description: 'add tiplink gmail auth and sphere for monthly payments.',
+        title: 'sphere for payments',
+        description: 'add sphere for monthly payments.',
         status: 'planned',
     },
 ];
@@ -49,33 +54,35 @@ const RoadmapPage = () => {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen mx-auto mt-24">
-            <Card className="w-full max-w-4xl">
-                <CardHeader>
-                    <CardTitle className="text-3xl font-bold text-center leading-tight tracking-tighter">
-                        project roadmap
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    {roadmap.map((item, index) => (
-                        <Card key={index}>
-                            <CardContent className="pt-6">
-                                <div className="flex items-center justify-between mb-2">
-                                    <h2 className="text-xl font-semibold">{item.title}</h2>
-                                    <Badge className={cn(
-                                        getStatusStyles(item.status)
-                                    )}>
-                                        {item.status}
-                                    </Badge>
-                                </div>
-                                <p className="text-sm text-muted-foreground">
-                                    {item.description}
-                                </p>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </CardContent>
-            </Card>
+        <div className="h-screen overflow-y-auto">
+            <div className="flex flex-col items-center mx-auto py-24">
+                <Card className="w-full max-w-4xl">
+                    <CardHeader>
+                        <CardTitle className="text-3xl font-bold text-center leading-tight tracking-tighter">
+                            project roadmap
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        {roadmap.map((item, index) => (
+                            <Card key={index}>
+                                <CardContent className="pt-6">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <h2 className="text-xl font-semibold">{item.title}</h2>
+                                        <Badge className={cn(
+                                            getStatusStyles(item.status)
+                                        )}>
+                                            {item.status}
+                                        </Badge>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground">
+                                        {item.description}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 };
