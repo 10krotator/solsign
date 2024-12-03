@@ -80,8 +80,8 @@ This project is licensed under the [LICENSE NAME] - see the [LICENSE.md](LICENSE
 
 ## Contact
 
-Your Name - [@yourtwitter](https://twitter.com/_solsign)
-Project Link: [https://github.com/username/project-name](https://github.com/10krotator/solsign)
+Your Name - [@_solsign](https://twitter.com/_solsign)
+Project Link: [https://github.com/10krotator/solsign](https://github.com/10krotator/solsign)
 ```
 
 This is a template that you can customize based on your specific project needs. You should:
