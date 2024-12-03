@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+- Node.js (v18 or higher)
+- npm
+- convex
+
+## Installation
+
+1. Clone the repository
+
+```bash
+npm install
+```
+
+3. Set up environment variables
+
+```bash
+cp .env.example .env
+```
+Edit `.env` with your configuration values.
+
+CONVEX_DEPLOYMENT=dev:your-convex-deployment
+
+NEXT_PUBLIC_CONVEX_URL=https://your-convex-url.convex.cloud
+
+NEXT_PUBLIC_CONVEX_API_URL=https://your-convex-api-url.convex.site
+
+NEXT_PUBLIC_ADMIN_PUBKEY=your-admin-pubkey
+
+JWT_SECRET=your-secret-key
+
+NEXT_PUBLIC_RPC_URL=https://api.mainnet-beta.solana.com
+
+NEXT_PUBLIC_RPC_URL_DEVNET=https://api.devnet.solana.com
+
+NEXT_PUBLIC_IRYS_NODE_URL=https://node1.irys.xyz
+
+DIALECT_SDK_CREDENTIALS=dialect-sdk-credentials
+
+## Running Locally
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+project-name/
+├── app/           # Source files
+├── components/    # UI components
+├── convex/        # Convex database
+├── public/        # Static assets
+```
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests to ensure everything works
+5. Commit your changes (`git commit -m 'Add some amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Coding Standards
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Follow the existing code style
+- Write meaningful commit messages
+- Add tests for new features
+- Update documentation as needed
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the [LICENSE NAME] - see the [LICENSE.md](LICENSE.md) file for details
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contact
+
+Your Name - [@yourtwitter](https://twitter.com/_solsign)
+Project Link: [https://github.com/username/project-name](https://github.com/10krotator/solsign)
+```
+
+This is a template that you can customize based on your specific project needs. You should:
+
+1. Replace "Project Name" with your actual project name
+2. Add a detailed description of your project
+3. Update the prerequisites section with your actual requirements
+4. Modify the installation steps if they differ
+5. Update the project structure to match your actual directory layout
+6. Add any specific coding standards or guidelines for your project
+7. Update the license information
+8. Add your contact information
+
+You might also want to add:
+- Screenshots or GIFs demonstrating the project
+- API documentation
+- Deployment instructions
+- Troubleshooting guide
+- List of contributors
+- Acknowledgments
+
+Remember to keep your README up to date as your project evolves!
