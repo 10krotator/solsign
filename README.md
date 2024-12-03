@@ -80,7 +80,7 @@ This project is licensed under the [LICENSE NAME] - see the [LICENSE.md](LICENSE
 
 ## Contact
 
-Your Name - [@_solsign](https://twitter.com/_solsign)
+solana sign - [@_solanasign](https://twitter.com/_solanasign)
 Project Link: [https://github.com/10krotator/solsign](https://github.com/10krotator/solsign)
 ```
 
