@@ -19,6 +19,7 @@ cp .env.example .env
 ```
 Edit `.env` with your configuration values.
 
+```
 CONVEX_DEPLOYMENT=dev:your-convex-deployment
 
 NEXT_PUBLIC_CONVEX_URL=https://your-convex-url.convex.cloud
@@ -35,14 +36,15 @@ NEXT_PUBLIC_RPC_URL_DEVNET=https://api.devnet.solana.com
 
 NEXT_PUBLIC_IRYS_NODE_URL=https://node1.irys.xyz
 
-DIALECT_SDK_CREDENTIALS=dialect-sdk-credentials
+DIALECT_SDK_CREDENTIALS=dialect-sdk-credential
+```
 
 ## Running Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
+
+npx convex dev
 ```
 
 The application will be available at `http://localhost:3000`
@@ -83,24 +85,3 @@ This project is licensed under the [LICENSE NAME] - see the [LICENSE.md](LICENSE
 solana sign - [@_solanasign](https://twitter.com/_solanasign)
 Project Link: [https://github.com/10krotator/solsign](https://github.com/10krotator/solsign)
 ```
-
-This is a template that you can customize based on your specific project needs. You should:
-
-1. Replace "Project Name" with your actual project name
-2. Add a detailed description of your project
-3. Update the prerequisites section with your actual requirements
-4. Modify the installation steps if they differ
-5. Update the project structure to match your actual directory layout
-6. Add any specific coding standards or guidelines for your project
-7. Update the license information
-8. Add your contact information
-
-You might also want to add:
-- Screenshots or GIFs demonstrating the project
-- API documentation
-- Deployment instructions
-- Troubleshooting guide
-- List of contributors
-- Acknowledgments
-
-Remember to keep your README up to date as your project evolves!
